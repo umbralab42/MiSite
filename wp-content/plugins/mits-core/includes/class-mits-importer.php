@@ -1022,10 +1022,10 @@ class Mits_Importer {
 				'post_title' => $p->text( 'h1.mits-teacher-single__name' ),
 				'post_name'  => basename( rtrim( $p->path, '/' ) ),
 			) );
-			// Без обрізання пробілів по краях: у статичній копії вони є й впливають на перенесення рядків.
+			// Без обрізання по краях: у статичній копії там є символ розриву рядка (U+2028), він впливає на вигляд.
 			foreach ( array( '_teacher_position' => '.mits-teacher-single__position', '_teacher_grade' => '.mits-teacher-single__grade' ) as $key => $sel ) {
 				$node = $p->one( $sel );
-				update_post_meta( $id, $key, wp_slash( $node ? str_replace( "\xc2\xa0", ' ', preg_replace( '/\s*\R\s*/u', ' ', $node->textContent ) ) : '' ) );
+				update_post_meta( $id, $key, wp_slash( $node ? preg_replace( '/[ \t]*[\r\n]+[ \t]*/', ' ', $node->textContent ) : '' ) );
 			}
 			update_post_meta( $id, '_teacher_subjects', $subjects );
 			$desc = $p->one( '.mits-teacher-single__description-text' );

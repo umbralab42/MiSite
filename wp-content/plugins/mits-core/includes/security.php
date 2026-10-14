@@ -73,6 +73,10 @@ add_action( 'send_headers', function () {
 	if ( headers_sent() ) {
 		return;
 	}
+	// Якщо заголовки ставить Apache (.htaccess з mod_headers), PHP їх не дублює.
+	if ( function_exists( 'apache_get_modules' ) && in_array( 'mod_headers', (array) apache_get_modules(), true ) ) {
+		return;
+	}
 	header( 'X-Content-Type-Options: nosniff' );
 	header( 'X-Frame-Options: SAMEORIGIN' );
 	header( 'Referrer-Policy: strict-origin-when-cross-origin' );

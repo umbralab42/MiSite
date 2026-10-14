@@ -4,13 +4,13 @@ Options -Indexes
 
 # --- Заголовки безпеки ---
 <IfModule mod_headers.c>
-	Header always set X-Content-Type-Options "nosniff"
-	Header always set X-Frame-Options "SAMEORIGIN"
-	Header always set Referrer-Policy "strict-origin-when-cross-origin"
-	Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	Header set X-Content-Type-Options "nosniff"
+	Header set X-Frame-Options "SAMEORIGIN"
+	Header set Referrer-Policy "strict-origin-when-cross-origin"
+	Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 	# Базовий CSP: усе своє + Google Fonts + вбудовування YouTube. Inline-стилі й скрипти
 	# потрібні WordPress і Contact Form 7, тому 'unsafe-inline' лишається.
-	Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+	Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; frame-src 'self' blob: https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com; connect-src 'self'; worker-src 'self' blob:; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
 	Header always unset X-Powered-By
 </IfModule>
 

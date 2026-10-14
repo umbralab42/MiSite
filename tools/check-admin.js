@@ -46,7 +46,7 @@ const ok = (name, cond, extra = '') => { results.push([cond ? 'OK  ' : 'FAIL', n
   await page.fill(ukTitle, oldUk + ' ' + STAMP);
   await page.fill(enTitle, oldEn + ' ' + STAMP);
   await Promise.all([page.waitForNavigation(), page.click('#submit')]);
-  ok('збереження «МІТС: блоки»', page.url().includes('saved=1'));
+  ok('збереження «МІТС: блоки»', (await page.locator('.notice-success').count()) > 0);
   ok('новий заголовок «Чому ми?» на головній UA', (await front('/')).includes(STAMP));
   ok('новий заголовок «Why choose us?» на головній EN', (await front('/en/home-en/')).includes(STAMP));
   await page.fill(ukTitle, oldUk); await page.fill(enTitle, oldEn);
@@ -55,15 +55,17 @@ const ok = (name, cond, extra = '') => { results.push([cond ? 'OK  ' : 'FAIL', n
   // 2. Поле сторінки «Наука» (редактор блоків + метабокс).
   const naukaId = await (async () => { await page.goto(BASE + '/wp-admin/edit.php?post_type=page&lang=uk&s=%D0%9D%D0%B0%D1%83%D0%BA%D0%B0'); const href = await page.getAttribute('a.row-title', 'href'); return href && href.match(/post=(\d+)/)[1]; })();
   await page.goto(BASE + `/wp-admin/post.php?post=${naukaId}&action=edit`);
-  await page.waitForSelector('input[name="mits_meta[_nauka_ipst_title]"]', { timeout: 60000 });
+  await page.waitForSelector('input[name="mits_meta[_nauka_ipst_title]"]', { state: 'attached', timeout: 60000 });
+  // Поле метабокса може бути у згорнутій панелі під редактором — значення задаємо напряму.
+  const setIpst = (v) => page.$eval('input[name="mits_meta[_nauka_ipst_title]"]', (el, v) => { el.value = v; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); }, v);
   const closeWelcome = page.locator('.components-modal__frame button[aria-label="Close"], .components-modal__frame button[aria-label="Закрити"]');
   if (await closeWelcome.count()) await closeWelcome.first().click();
   const oldIpst = await page.inputValue('input[name="mits_meta[_nauka_ipst_title]"]');
-  await page.fill('input[name="mits_meta[_nauka_ipst_title]"]', oldIpst + ' ' + STAMP);
+  await setIpst(oldIpst + ' ' + STAMP);
   await page.click('.editor-header__settings button.editor-post-publish-button, .edit-post-header__settings button.editor-post-publish-button');
   await page.waitForTimeout(4000);
   ok('поле «IPST» сторінки «Наука» збережено й видно на сайті', (await front('/%D0%BD%D0%B0%D1%83%D0%BA%D0%B0/')).includes(STAMP));
-  await page.fill('input[name="mits_meta[_nauka_ipst_title]"]', oldIpst);
+  await setIpst(oldIpst);
   await page.click('.editor-header__settings button.editor-post-publish-button, .edit-post-header__settings button.editor-post-publish-button');
   await page.waitForTimeout(4000);
 
@@ -92,7 +94,8 @@ const ok = (name, cond, extra = '') => { results.push([cond ? 'OK  ' : 'FAIL', n
 
   // 4. Новина (редактор блоків).
   await page.goto(BASE + '/wp-admin/post-new.php?post_type=news&new_lang=uk');
-  await page.waitForSelector('.editor-post-title__input, h1.wp-block-post-title, [aria-label="Add title"], [aria-label="Додати заголовок"]', { timeout: 60000 });
+  await page.waitForSelector('iframe[name="editor-canvas"], .editor-post-title__input', { timeout: 60000 });
+  await page.waitForTimeout(2000);
   if (await closeWelcome.count()) await closeWelcome.first().click().catch(() => {});
   const frame = page.frameLocator('iframe[name="editor-canvas"]');
   const hasFrame = await page.locator('iframe[name="editor-canvas"]').count();

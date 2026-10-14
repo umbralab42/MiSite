@@ -46,7 +46,7 @@ function mits_post_type_fields() {
 		'mits_activity'   => array(
 			'title'  => 'Картка',
 			'fields' => array(
-				array( 'key' => '_act_desc', 'label' => 'Опис', 'type' => 'textarea' ),
+				array( 'key' => '_act_desc', 'label' => 'Опис', 'type' => 'textarea_html' ),
 				array( 'key' => '_act_btn', 'label' => 'Текст кнопки', 'type' => 'text', 'help' => 'Порожнє — «Детальніше».' ),
 				array( 'key' => '_act_url', 'label' => 'Посилання кнопки', 'type' => 'url' ),
 				array( 'key' => '_act_icon_url', 'label' => 'Іконка', 'type' => 'image' ),
@@ -56,13 +56,13 @@ function mits_post_type_fields() {
 		'mits_advantage'  => array(
 			'title'  => 'Текст, що розгортається',
 			'fields' => array(
-				array( 'key' => '_adv_details', 'label' => 'Текст', 'type' => 'textarea', 'rows' => 8, 'help' => 'Кожен новий рядок показується з нового рядка.' ),
+				array( 'key' => '_adv_details', 'label' => 'Текст', 'type' => 'textarea_html', 'rows' => 8, 'help' => 'Кожен новий рядок показується з нового рядка.' ),
 			),
 		),
 		'mits_faq'        => array(
 			'title'  => 'Відповідь',
 			'fields' => array(
-				array( 'key' => '_faq_answer', 'label' => 'Відповідь', 'type' => 'textarea', 'rows' => 6 ),
+				array( 'key' => '_faq_answer', 'label' => 'Відповідь', 'type' => 'textarea_html', 'rows' => 6 ),
 			),
 		),
 		'mits_edu_level'  => array(
@@ -75,7 +75,7 @@ function mits_post_type_fields() {
 				array( 'key' => '_edu_level_subjects', 'label' => 'Предмети', 'type' => 'list', 'add' => '+ Предмет' ),
 				array( 'key' => '_edu_level_subject_alt', 'label' => 'Примітка під предметами', 'type' => 'textarea' ),
 				array( 'key' => '_edu_level_algorithm_title', 'label' => 'Заголовок алгоритму вступу', 'type' => 'text' ),
-				array( 'key' => '_edu_level_algorithm', 'label' => 'Кроки алгоритму', 'type' => 'list', 'item' => 'textarea', 'add' => '+ Крок', 'help' => 'Дозволено &lt;strong&gt;, &lt;br&gt;, посилання.' ),
+				array( 'key' => '_edu_level_algorithm', 'label' => 'Кроки алгоритму', 'type' => 'list', 'item' => 'textarea_html', 'add' => '+ Крок', 'help' => 'Дозволено &lt;strong&gt;, &lt;br&gt;, посилання.' ),
 				array( 'key' => '_edu_level_tips_title', 'label' => 'Заголовок порад', 'type' => 'text' ),
 				array( 'key' => '_edu_level_tips', 'label' => 'Поради', 'type' => 'list', 'add' => '+ Порада' ),
 			),
@@ -198,7 +198,7 @@ function mits_nauka_fields() {
 		array( 'key' => '_nauka_contests_years', 'label' => 'Навчальні роки (вкладки)', 'type' => 'repeater', 'add' => '+ Рік', 'fields' => array(
 			array( 'key' => 'label', 'label' => 'Рік (наприклад 2025/2026)', 'type' => 'text' ),
 			array( 'key' => 'items', 'label' => 'Результати (кожен — окремий пункт)', 'type' => 'repeater', 'add' => '+ Пункт', 'fields' => array(
-				array( 'key' => 'text', 'label' => '', 'type' => 'textarea', 'rows' => 2 ),
+				array( 'key' => 'text', 'label' => '', 'type' => 'textarea_html', 'rows' => 2 ),
 			) ),
 			array( 'key' => 'empty', 'label' => 'Текст, якщо результатів немає', 'type' => 'text' ),
 			array( 'key' => 'more_text', 'label' => 'Текст посилання під списком', 'type' => 'text' ),

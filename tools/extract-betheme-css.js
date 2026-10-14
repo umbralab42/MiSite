@@ -140,7 +140,7 @@ function build(args) {
         if (abs.origin !== new URL(BASE).origin) return m;
         const rel = decodeURIComponent(abs.pathname);
         const src = path.join(ROOT, rel);
-        if (/\.(woff2?|ttf|eot|svg)$/.test(rel) && fs.existsSync(src)) {
+        if (/\.(woff2?|ttf|eot|svg)$/.test(rel) && fs.existsSync(src) && !/\/mfn\/icons\./.test(rel)) {
           fs.mkdirSync(assetsDir, { recursive: true });
           fs.copyFileSync(src, path.join(assetsDir, path.basename(rel)));
           return `url("../fonts/${path.basename(rel)}")`;
@@ -152,6 +152,8 @@ function build(args) {
              .replace(new RegExp('\\.' + c + '(?=[ ,{])', 'g'), 'body');
       }
       t = t.replace(/(^|, )body (#|\.)/gm, '$1$2');
+      // Шрифт іконок betheme не переноситься: єдина іконка (конус на сторінці 404) — SVG у темі.
+      t = t.split('\n').filter(l => !/mfn-icons|\[class\^="icon-"\]|^\.icon-[\w-]+::before/.test(l)).join('\n');
       css += `\n/* ---- ${id} ---- */\n` + t;
     }
     fs.writeFileSync(path.join(OUT, file), css);

@@ -26,6 +26,8 @@ services:
   wordpress:
     image: wordpress:php8.3-apache
     restart: unless-stopped
+    # mod_headers потрібен для заголовків безпеки з .htaccess (на хостингу він увімкнений).
+    command: ["bash", "-c", "a2enmod headers >/dev/null && echo 'expose_php = Off' > /usr/local/etc/php/conf.d/zz-mits.ini && exec docker-entrypoint.sh apache2-foreground"]
     depends_on:
       db:
         condition: service_healthy

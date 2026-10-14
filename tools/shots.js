@@ -5,22 +5,23 @@ const pixelmatchMod = require('pixelmatch');
 const pixelmatch = pixelmatchMod.default || pixelmatchMod;
 
 const FREEZE_JS = () => {
-  // Зупиняємо автопрокрутку слайдера й таймери, щоб знімки були відтворювані.
+  // Зупиняємо автопрокрутку слайдера, щоб знімки були відтворювані.
   window.setInterval = function () { return 0; };
-  window.__mitsFrozen = true;
 };
 const FREEZE_CSS = '*,*::before,*::after{transition:none!important;animation:none!important;caret-color:transparent!important}';
 
 async function prepare(page) {
   await page.addStyleTag({ content: FREEZE_CSS });
-  // Підвантажуємо ліниві зображення.
+  // Прокрутка донизу, щоб спрацювали ліниві зображення, потім очікування їх завантаження.
   await page.evaluate(async () => {
-    document.querySelectorAll('img[loading=lazy]').forEach(i => { i.loading = 'eager'; });
-    await Promise.all([...document.images].map(i => (i.complete ? Promise.resolve() : new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 8000); })).then(() => i.decode ? i.decode().catch(() => 0) : 0)));
-    if (document.fonts) await document.fonts.ready;
+    for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 40)); }
   });
-  // Прокрутка донизу й назад, щоб браузер точно відмалював усі зображення.
-  await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 800) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 30)); } window.scrollTo(0, 0); });
+  await page.evaluate(async () => {
+    const imgs = [...document.images];
+    await Promise.all(imgs.map(i => (i.complete ? Promise.resolve() : new Promise(r => { i.addEventListener('load', r, { once: true }); i.addEventListener('error', r, { once: true }); setTimeout(r, 10000); })).then(() => (i.decode ? i.decode().catch(() => 0) : 0))));
+    if (document.fonts) await document.fonts.ready;
+    window.scrollTo(0, 0);
+  });
   await page.waitForTimeout(300);
 }
 

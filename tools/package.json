@@ -9,8 +9,8 @@
     "links": "node check-links.js http://localhost:8080"
   },
   "devDependencies": {
-    "pixelmatch": "^7.1.0",
-    "playwright": "^1.56.0",
+    "pixelmatch": "^8.0.0",
+    "playwright": "^1.64.0",
     "pngjs": "^7.0.0"
   }
 }

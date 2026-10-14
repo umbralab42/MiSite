@@ -99,19 +99,19 @@ function mits_settings_tabs() {
 			'fields' => array(
 				array( 'key' => 'mits_intl_hero_id', 'label' => 'Слайд угорі', 'type' => 'slide' ),
 				array( 'key' => 'mits_intl_photo', 'label' => 'Фото', 'type' => 'image' ),
-				array( 'key' => 'mits_intl_text', 'label' => 'Текст біля фото', 'type' => 'textarea', 'rows' => 4, 'tr' => true ),
+				array( 'key' => 'mits_intl_text', 'label' => 'Текст біля фото', 'type' => 'textarea_html', 'rows' => 4, 'tr' => true ),
 				array( 'key' => 'mits_intl_links', 'label' => 'Посилання під текстом', 'type' => 'repeater', 'tr' => true, 'add' => '+ Посилання', 'fields' => $name_url, 'help' => 'Якщо назву не вказано, показується адреса.' ),
 				array( 'key' => 'mits_intl_stats', 'label' => 'Цифри університету-партнера', 'type' => 'repeater', 'tr' => true, 'add' => '+ Цифра', 'fields' => array(
 					array( 'key' => 'value', 'label' => 'Число', 'type' => 'text' ),
 					array( 'key' => 'label', 'label' => 'Підпис', 'type' => 'text' ),
 				), 'help' => 'По чотири в рядку.' ),
 				array( 'key' => 'mits_intl_courses_photo', 'label' => 'Фото біля опису університету', 'type' => 'image' ),
-				array( 'key' => 'mits_intl_courses_text', 'label' => 'Опис університету', 'type' => 'textarea', 'rows' => 6, 'tr' => true ),
+				array( 'key' => 'mits_intl_courses_text', 'label' => 'Опис університету', 'type' => 'textarea_html', 'rows' => 6, 'tr' => true ),
 				array( 'key' => 'mits_intl_courses_slogan', 'label' => 'Слоган', 'type' => 'textarea', 'rows' => 2, 'tr' => true ),
 				array( 'key' => 'mits_intl_courses_title', 'label' => 'Заголовок курсів', 'type' => 'textarea', 'rows' => 2, 'tr' => true ),
 				array( 'key' => 'mits_intl_courses', 'label' => 'Курси (акордеон)', 'type' => 'repeater', 'tr' => true, 'add' => '+ Курс', 'fields' => array(
 					array( 'key' => 'name', 'label' => 'Назва', 'type' => 'text' ),
-					array( 'key' => 'desc', 'label' => 'Опис', 'type' => 'textarea', 'rows' => 3 ),
+					array( 'key' => 'desc', 'label' => 'Опис', 'type' => 'textarea_html', 'rows' => 3 ),
 				) ),
 				array( 'key' => 'mits_intl_docs_title', 'label' => 'Заголовок документів', 'type' => 'text', 'tr' => true ),
 				array( 'key' => 'mits_intl_docs', 'label' => 'Документи', 'type' => 'repeater', 'tr' => true, 'add' => '+ Документ', 'fields' => $name_url ),

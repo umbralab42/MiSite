@@ -5,7 +5,8 @@
  * Опис поля: [
  *   'key'     => ключ мета-поля / опції,
  *   'label'   => підпис,
- *   'type'    => text|textarea|html|url|number|color|image|image_id|page|slide|list|repeater|checkbox,
+ *   'type'    => text|textarea|textarea_html|html|url|number|color|image|image_id|page|slide|list|repeater|checkbox,
+ *               (textarea_html — текстове поле, у якому дозволено &lt;strong&gt;, &lt;br&gt;, посилання),
  *   'help'    => підказка (необов'язково),
  *   'fields'  => підполя для repeater,
  *   'storage' => 'json' (за замовчуванням для list/repeater) або 'array' (серіалізований масив PHP),
@@ -29,6 +30,7 @@ function mits_render_field( $field, $name, $value ) {
 
 	switch ( $type ) {
 		case 'textarea':
+		case 'textarea_html':
 			printf( '<textarea class="large-text" rows="%3$d" id="%1$s" name="%2$s">%4$s</textarea>', esc_attr( $id ), esc_attr( $name ), isset( $field['rows'] ) ? (int) $field['rows'] : 4, esc_textarea( (string) $value ) );
 			break;
 
@@ -209,6 +211,8 @@ function mits_sanitize_field( $field, $raw ) {
 	switch ( $type ) {
 		case 'textarea':
 			return sanitize_textarea_field( (string) $raw );
+		case 'textarea_html':
+			return trim( wp_kses( (string) $raw, mits_kses_inline() ) );
 		case 'html':
 			return wp_kses_post( (string) $raw );
 		case 'url':

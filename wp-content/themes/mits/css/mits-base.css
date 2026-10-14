@@ -3,7 +3,6 @@
  * з reference/static-site (93 сторінок). Далі редагується вручну. */
 
 /* ---- mfn-be-css ---- */
-@font-face { font-family: mfn-icons; src: url("../fonts/icons.woff2") format("woff2"), url("../fonts/icons.woff") format("woff"), url("../fonts/icons.ttf") format("truetype"); font-weight: normal; font-style: normal; font-display: swap; }
 html, body, div, span, h2, h4, p, a, img, i, ul, li, fieldset, form, nav, section, iframe, h1, h3, strong, ol, b, label, figure, time, mark, applet, object, h5, h6, blockquote, pre, abbr, acronym, address, cite, code, del, dfn, em, ins, kbd, q, s, samp, strike, tt, var, u, center, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figcaption, footer, header, hgroup, menu, output, ruby, summary, audio, video { margin: 0px; padding: 0px; border: 0px; font: inherit; vertical-align: baseline; }
 nav, section, figure, article, aside, details, figcaption, footer, header, hgroup, menu { display: block; }
 body { line-height: 1; }
@@ -32,8 +31,6 @@ button, .button, input[type="button"], input[type="reset"] { background-color: v
 button:hover, .button:hover, input[type="button"]:hover, input[type="reset"]:hover { background-color: var(--mfn-button-bg-hover); background-image: var(--mfn-button-bg-image-hover); border-color: var(--mfn-button-border-color-hover); color: var(--mfn-button-color-hover); }
 input[type="submit"] { background-color: var(--mfn-button-theme-bg); background-image: var(--mfn-button-theme-bg-image); border-color: var(--mfn-button-theme-border-color); color: var(--mfn-button-theme-color); box-shadow: var(--mfn-button-theme-box-shadow); }
 input[type="submit"]:hover { background-color: var(--mfn-button-theme-bg-hover); background-image: var(--mfn-button-theme-bg-image-hover); border-color: var(--mfn-button-theme-border-color-hover); color: var(--mfn-button-theme-color-hover); }
-[class^="icon-"]::before, [class*=" icon-"]::before { font-family: mfn-icons; font-style: normal; font-weight: 400; display: inline-block; text-decoration: inherit; width: 1em; text-align: center; font-variant: normal; text-transform: none; line-height: 1em; -webkit-font-smoothing: antialiased; }
-.icon-traffic-cone::before { content: ""; }
 .wpcf7::after { clear: both; content: ""; display: block; }
 span.wpcf7-form-control-wrap { width: 100%; display: inline-block; margin-bottom: 3px; position: relative !important; }
 span.wpcf7-form-control-wrap .wpcf7-text, span.wpcf7-form-control-wrap .wpcf7-textarea { width: 100%; box-sizing: border-box; margin-bottom: 0px; }

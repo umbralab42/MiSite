@@ -1406,14 +1406,53 @@ class Mits_Importer {
 			update_option( 'mits_intl_courses_en', wp_json_encode( $courses, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) );
 		}
 
-		// Форми CF7 за мовою.
+		// Форми CF7 за мовою. Збереження через CF7 перебудовує копію налаштувань у post_content
+		// (там лишалися дані старого сайту, зокрема адреса відправника).
 		foreach ( array( 124 => 'uk', 159 => 'en' ) as $old => $lang ) {
 			if ( $this->id( $old ) ) {
 				update_option( 'mits_cf7_form_' . $lang, $this->id( $old ) );
+				$this->cf7_texts_from_static( $this->id( $old ), 'en' === $lang ? '/en/contacts/' : '/контакти/' );
+				$form = function_exists( 'wpcf7_contact_form' ) ? wpcf7_contact_form( $this->id( $old ) ) : null;
+				if ( $form ) {
+					$form->save();
+				}
 			}
 		}
 		update_option( 'mits_contacts_page_id', $this->id( 24 ) );
 		$this->log( 'Налаштування блоків mits_* (uk + en).' );
+	}
+
+	/**
+	 * Підписи полів і кнопки форми — як у статичній копії.
+	 *
+	 * @param int    $form_id ID форми CF7.
+	 * @param string $path    Сторінка статичної копії з формою.
+	 */
+	private function cf7_texts_from_static( $form_id, $path ) {
+		$page = $this->static->page( $path );
+		$tpl  = (string) get_post_meta( $form_id, '_form', true );
+		if ( ! $page || '' === $tpl ) {
+			return;
+		}
+		foreach ( $page->all( 'form.wpcf7-form input' ) as $el ) {
+			$name = $el->getAttribute( 'name' );
+			$ph   = $el->getAttribute( 'placeholder' );
+			if ( $name && '' !== $ph ) {
+				$tpl = preg_replace( '/(\[[a-z*]+\s+' . preg_quote( $name, '/' ) . '\b[^\]]*placeholder\s+")[^"]*(")/u', '${1}' . str_replace( '$', '\$', $ph ) . '${2}', $tpl );
+			}
+		}
+		foreach ( $page->all( 'form.wpcf7-form textarea' ) as $el ) {
+			$name = $el->getAttribute( 'name' );
+			$ph   = $el->getAttribute( 'placeholder' );
+			if ( $name && '' !== $ph ) {
+				$tpl = preg_replace( '/(\[textarea\*?\s+' . preg_quote( $name, '/' ) . '\b[^\]]*placeholder\s+")[^"]*(")/u', '${1}' . str_replace( '$', '\$', $ph ) . '${2}', $tpl );
+			}
+		}
+		$submit = $page->attr( 'form.wpcf7-form input.wpcf7-submit', 'value' );
+		if ( '' !== $submit ) {
+			$tpl = preg_replace( '/\[submit\s+"[^"]*"\]/u', '[submit "' . str_replace( '$', '\$', $submit ) . '"]', $tpl );
+		}
+		update_post_meta( $form_id, '_form', wp_slash( $tpl ) );
 	}
 
 	/**
@@ -1499,6 +1538,14 @@ class Mits_Importer {
 	private function relativize( $text ) {
 		if ( ! is_string( $text ) || '' === $text ) {
 			return $text;
+		}
+		// JSON (списки в полях і налаштуваннях): адреси там екрановані «https:\/\/…».
+		$trim = ltrim( $text );
+		if ( '' !== $trim && ( '[' === $trim[0] || '{' === $trim[0] ) ) {
+			$decoded = json_decode( $text, true );
+			if ( is_array( $decoded ) ) {
+				return wp_json_encode( $this->relativize_deep( $decoded ), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+			}
 		}
 		return preg_replace( '#https?://(?:dev\.)?mits-khpi\.kh\.ua(?=/|"|\'|\s|$)|https?://localhost(?::\d+)?(?=/)#i', '', $text );
 	}

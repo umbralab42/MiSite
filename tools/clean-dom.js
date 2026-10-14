@@ -7,6 +7,8 @@ module.exports = function cleanDom(keep) {
    'script[type=speculationrules]', '#wp-emoji-settings'].forEach(function (s) {
     document.querySelectorAll(s).forEach(function (n) { n.remove(); });
   });
+  // keep === '.' — лише прибрати елементи, класи не чіпати (порівняння еталона «як є»).
+  if (keep === '.') return;
   // Класи, які тема mits додає сама на тих самих сторінках (mits_body_class()).
   var keepRe = new RegExp(keep || '^(no-content-padding|full-width-site)$');
   var drop = /^(color-custom|content-brightness-|input-brightness-|style-simple|button-animation-|layout-|full-width-site|if-|no-content-padding|header-|sticky-|ab-|menu-|menuo-|subheader-|responsive-|mobile-|be-|woocommerce-|wp-theme-betheme|theme-betheme|mfn-)/;

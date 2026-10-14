@@ -39,8 +39,10 @@ function outline() {
       const cls = [...n.classList].filter(c => !/^(menu-item-\d+|page-item-\d+|wp-image-\d+|is-active|current[-_].*)$/.test(c)).sort().join('.');
       let extra = '';
       if (n.tagName === "UL" && /^menu-main_menu/.test(n.id)) { lines.push("  ".repeat(depth) + "ul#menu.mits-nav__menu"); walk(n, depth + 1); continue; }
-      if (n.tagName === 'A') extra = ' href=' + decodeURIComponent((n.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').toLowerCase());
-      if (n.tagName === 'IMG') extra = ' src=' + decodeURIComponent((n.getAttribute('src') || '').replace(/^https?:\/\/[^/]+/, ''));
+      // Відносні адреси й адреси локальних серверів порівнюються як шляхи; зовнішні — повністю.
+      const local = (v) => decodeURIComponent((v || '').replace(/^https?:\/\/localhost(:\d+)?/, ''));
+      if (n.tagName === 'A') extra = ' href=' + local(n.getAttribute('href')).toLowerCase();
+      if (n.tagName === 'IMG') extra = ' src=' + local(n.getAttribute('src'));
       lines.push('  '.repeat(depth) + n.tagName.toLowerCase() + (n.id && !/^(menu-item|wpcf7-f)/.test(n.id) ? '#' + n.id : '') + (cls ? '.' + cls : '') + extra);
       walk(n, depth + 1);
     }
@@ -52,16 +54,19 @@ function outline() {
   const browser = await chromium.launch({ executablePath: fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined });
   const ctx = await browser.newContext({ viewport: { width: WIDTH, height: 900 } });
   await ctx.addInitScript(FREEZE_JS);
-  const pages = require('./pages')().filter(p => !ONLY || decodeURIComponent(p).includes(ONLY));
+  // Пари [адреса статичної копії, адреса WordPress]; для 404 — довільна неіснуюча адреса.
+  const pages = require('./pages')().map(p => [p, p]).concat([['/404.html', '/neisnuiucha-storinka/']])
+    .filter(([p]) => !ONLY || decodeURIComponent(p).includes(ONLY));
   const summary = [];
-  for (const u of pages) {
+  for (const [u, wpPath] of pages) {
     const name = (decodeURIComponent(u).replace(/\//g, '_') || '_').replace(/^_|_$/g, '') || 'home';
     const res = {};
     for (const [side, base] of [['static', STATIC], ['wp', WP]]) {
       const page = await ctx.newPage();
-      const resp = await page.goto(base + u, { waitUntil: 'networkidle' }).catch(e => null);
+      const resp = await page.goto(base + (side === 'wp' ? wpPath : u), { waitUntil: 'networkidle' }).catch(e => null);
       res[side + 'Status'] = resp ? resp.status() : 0;
-      if (side === 'static') await page.evaluate(cleanDom);
+      // В еталоні прибираються лише приховані елементи betheme; класи лишаються (його CSS від них залежить).
+      if (side === 'static') await page.evaluate(cleanDom, '.');
       await prepare(page);
       fs.writeFileSync(`${OUT}/${name}.${side}.txt`, (await page.evaluate(outline)).join('\n'));
       if (!NOSHOT) await page.screenshot({ path: `${OUT}/${name}.${side}.png`, fullPage: true });

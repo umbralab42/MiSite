@@ -1,0 +1,69 @@
+/* Сторінка «Наука»: блоки за макетом Figma. Доповнює mits-front.css, нічого в ньому не змінює.
+   Розміри шрифтів, ширини й відступи взято такі самі, як на сторінках «Міжнародність» та «Освіта». */
+.gradient-nauka .mits-hero__line { background-image: linear-gradient(90deg, #e662a2, #e662a2); }
+.mits-hero__title--icon { display: flex; align-items: center; gap: 0.22em; }
+.mits-hero__title-icon { flex: 0 0 auto; width: 0.95em; height: 0.95em; }
+
+#mits-front .mits-nauka { position: relative; padding: 16px 0 48px; text-align: center; }
+#mits-front .mits-nauka--glow-teal   { background: radial-gradient(60% 55% at 12% 45%, rgba(20, 96, 122, 0.55), transparent 70%); }
+#mits-front .mits-nauka--glow-pink   { background: radial-gradient(55% 55% at 92% 55%, rgba(140, 40, 90, 0.5), transparent 70%); }
+#mits-front .mits-nauka--glow-green  { background: radial-gradient(55% 55% at 6% 60%, rgba(22, 92, 80, 0.5), transparent 70%); }
+#mits-front .mits-nauka--glow-orange { background: radial-gradient(50% 55% at 96% 60%, rgba(150, 70, 20, 0.5), transparent 70%); }
+
+#mits-front .mits-nauka__title { font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 48px 0 32px; color: #fff; font-weight: 700; font-size: 48px; line-height: 1.15; letter-spacing: 4px; text-transform: uppercase; }
+#mits-front .mits-nauka__title--plain { text-transform: none; letter-spacing: 2px; }
+#mits-front .mits-nauka__lead { max-width: 680px; margin: 0 auto 36px; color: #fff; font-weight: 700; font-size: 18px; line-height: 1.5; text-transform: uppercase; }
+#mits-front .mits-nauka__subtitle { margin: 48px 0 20px; color: #fff; font-weight: 700; font-size: 22px; line-height: 1.5; letter-spacing: 0; text-transform: none; }
+
+#mits-front .mits-nauka__card { max-width: 860px; margin: 0 auto; padding: 40px 44px; border-radius: 24px; background: rgba(255, 255, 255, 0.13); color: #d8d8d8; font-size: 17px; line-height: 1.8; }
+#mits-front .mits-nauka__card p { margin: 0; }
+#mits-front .mits-nauka__card p + p { margin-top: 18px; }
+#mits-front .mits-nauka a.mits-nauka__link { color: #569de6; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+#mits-front .mits-nauka a.mits-nauka__link:hover { color: #8fc0f5; }
+#mits-front .mits-nauka__more { margin: 32px 0 0; font-size: 17px; }
+
+#mits-front .mits-nauka__posters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; max-width: 860px; margin: 40px auto 0; }
+#mits-front .mits-nauka__poster { display: block; border-radius: 24px; overflow: hidden; background: #fff; }
+#mits-front .mits-nauka__poster img { display: block; width: 100%; height: auto; }
+
+#mits-front .mits-nauka__stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px 80px; margin: 48px auto 0; }
+#mits-front .mits-nauka__stat { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+#mits-front .mits-nauka__stat-value { color: #946ff6; font-weight: 800; font-size: 56px; line-height: 1; }
+#mits-front .mits-nauka__stat-label { color: #569de6; font-size: 14px; letter-spacing: 0.03em; }
+
+
+#mits-front .mits-nauka__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; max-width: 860px; margin: 48px auto 0; }
+#mits-front .mits-nauka__item-img { aspect-ratio: 398 / 346; border-radius: 24px; overflow: hidden; background: linear-gradient(135deg, #5a55a4, #4b367c); }
+#mits-front .mits-nauka__item-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+#mits-front .mits-nauka__item-title { margin: 16px 0 0; font-size: 16px; }
+#mits-front .mits-nauka__item-text { margin: 8px 0 0; color: #d8d8d8; font-size: 14px; line-height: 1.6; }
+
+#mits-front .mits-nauka__results { max-width: 820px; margin: 28px auto 0; padding-left: 20px; color: #d8d8d8; font-size: 16px; line-height: 1.7; text-align: left; list-style: disc; }
+#mits-front .mits-nauka__results li { margin: 0 0 6px; }
+
+/* акордеон: той самий компонент, що на «Міжнародності», з синіми лініями з макета */
+#mits-front .mits-nauka__accordion { max-width: 860px; margin: 0 auto; text-align: left; }
+#mits-front .mits-nauka__accordion--after-card { margin-top: 40px; }
+#mits-front .mits-nauka__accordion .mits-adv-item { border-top: 0; border-bottom: 1px solid #3c73b6; }
+#mits-front .mits-nauka__accordion .mits-adv-item__chevron { color: #569de6; }
+#mits-front .mits-nauka__accordion .mits-adv-item__header:focus-visible,
+#mits-front .mits-nauka__tab:focus-visible { outline: 2px solid #569de6; outline-offset: 3px; }
+
+/* вкладки навчальних років */
+#mits-front .mits-nauka__tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 32px; max-width: 860px; margin: 0 auto; padding: 0 0 14px; border-bottom: 1px solid #3c73b6; }
+#mits-front .mits-nauka__tab { padding: 0; border: 0; background: none; color: #8a8a8a; font: inherit; font-size: 16px; cursor: pointer; transition: color 0.2s; }
+#mits-front .mits-nauka__tab:hover { color: #d8d8d8; }
+#mits-front .mits-nauka__tab.is-active { color: #fff; font-weight: 700; }
+#mits-front .mits-nauka__panel[hidden] { display: none; }
+#mits-front .mits-nauka__empty { margin: 28px 0 0; color: #8a8a8a; font-size: 16px; }
+
+@media (max-width: 900px) {
+  #mits-front .mits-nauka__card { padding: 28px 28px 32px; }
+  #mits-front .mits-nauka__stat-value { font-size: 40px; }
+  #mits-front .mits-nauka__stats { gap: 28px 48px; }
+}
+@media (max-width: 768px) {
+  #mits-front .mits-nauka__title { font-size: 32px; letter-spacing: 2px; margin: 32px 0 24px; }
+  #mits-front .mits-nauka__lead { font-size: 15px; }
+  #mits-front .mits-nauka__posters, #mits-front .mits-nauka__cards { grid-template-columns: 1fr; max-width: 420px; }
+}

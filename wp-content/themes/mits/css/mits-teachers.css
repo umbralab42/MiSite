@@ -1,0 +1,218 @@
+/* ============================================
+   MITS Teachers – Single Page & Archive
+   ============================================ */
+
+/* ============================================
+   TEACHER SINGLE PAGE
+   ============================================ */
+.mits-teacher-single { color: #fff; }
+
+.mits-teacher-single__header {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  margin-bottom: 48px;
+}
+
+.mits-teacher-single__photo {
+  flex-shrink: 0;
+  width: 260px;
+}
+.mits-teacher-single__photo img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.mits-teacher-single__info { flex: 1; }
+
+.mits-teacher-single__name {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #fff;
+}
+.mits-teacher-single__position {
+  font-size: 18px;
+  color: #569DE6;
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+.mits-teacher-single__grade {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  margin: 0 0 24px;
+}
+
+.mits-teacher-single__subjects h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mits-teacher-single__subjects li {
+  background: #1c1c1c;
+  border: 1px solid #363636;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 14px;
+  color: #569DE6;
+}
+
+.mits-teacher-single__description,
+.mits-teacher-single__publications {
+  margin-bottom: 40px;
+}
+.mits-teacher-single__description h2,
+.mits-teacher-single__publications h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #2a2a2a;
+}
+.mits-teacher-single__description-text {
+  line-height: 1.8;
+  color: rgba(255,255,255,0.75);
+}
+.mits-teacher-single__publications ol {
+  padding-left: 20px;
+  margin: 0;
+}
+.mits-teacher-single__publications li {
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.mits-teacher-single__back { margin-top: 40px; }
+
+@media (max-width: 640px) {
+  .mits-teacher-single__header { flex-direction: column; }
+  .mits-teacher-single__photo { width: 100%; }
+}
+
+/* ============================================
+   TEACHERS ARCHIVE
+   ============================================ */
+.mits-teachers-archive { background: #000; }
+
+.mits-teachers-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px 40px;
+  margin-top: 48px;
+}
+
+.mits-teacher-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  text-align: center;
+}
+
+.mits-teacher-card__photo-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  margin-bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-decoration: none;
+}
+/* Orange glow behind photo — matches the design */
+.mits-teacher-card__photo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 60% 80%, rgba(234,106,0,0.55) 0%, transparent 70%);
+  border-radius: 12px;
+  z-index: 0;
+}
+.mits-teacher-card__photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.mits-teacher-card__photo--placeholder {
+  width: 100%;
+  height: 100%;
+  background: #1c1c1c;
+  border-radius: 12px;
+}
+
+.mits-teacher-card__info {
+  width: 100%;
+  padding: 14px 12px 16px;
+}
+
+.mits-teacher-card__name {
+  font-family: "Century Gothic", "Apple Gothic", Century, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-align: center;
+  margin: 0 0 6px;
+}
+.mits-teacher-card__name a {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+.mits-teacher-card__name a:hover {
+  color: #569DE6 !important;
+}
+.mits-teacher-card__position {
+  font-family: "Century Gothic", "Apple Gothic", Century, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-align: center;
+  color: #569DE6 !important;
+  background: none;
+  margin: 0 0 4px;
+}
+.mits-teacher-card__grade {
+  font-family: "Century Gothic", "Apple Gothic", Century, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-align: center;
+  color: #936ef6 !important;
+  margin: 0 0 12px;
+}
+.mits-teacher-card__link {
+  display: inline-block;
+  font-family: "Century Gothic", "Apple Gothic", Century, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  color: #E662A2 !important;
+  transition: color 0.2s;
+}
+.mits-teacher-card:hover .mits-teacher-card__link { color: #569DE6 !important; }
+.mits-teacher-card:hover .mits-teacher-card__name a { color: #569DE6 !important; }
+
+@media (max-width: 640px) {
+  .mits-teachers-grid { grid-template-columns: 1fr; gap: 32px; }
+}

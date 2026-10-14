@@ -1,0 +1,16 @@
+{
+  "name": "mits-tools",
+  "private": true,
+  "description": "Інструменти перевірки сайту МІТС: витяг CSS з betheme, порівняння WordPress зі статичною копією, перевірка посилань.",
+  "scripts": {
+    "static": "python3 -m http.server 8081 -d ../reference/static-site",
+    "extract-css": "node extract-betheme-css.js http://localhost:8081 ../wp-content/themes/mits/css",
+    "compare": "node compare.js --static=http://localhost:8081 --wp=http://localhost:8080 --out=/tmp/mits-compare",
+    "links": "node check-links.js http://localhost:8080"
+  },
+  "devDependencies": {
+    "pixelmatch": "^7.1.0",
+    "playwright": "^1.56.0",
+    "pngjs": "^7.0.0"
+  }
+}

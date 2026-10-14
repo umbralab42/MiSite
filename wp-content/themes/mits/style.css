@@ -1,0 +1,14 @@
+/*
+Theme Name: MITS
+Theme URI: https://mits-khpi.kh.ua/
+Author: Кафедра МІТС НТУ «ХПІ»
+Description: Тема сайту кафедри мультимедійних та інтернет технологій і систем НТУ «ХПІ». Класична PHP-тема без батьківської; вміст редагується через плагін MITS Core.
+Version: 1.0.0
+Requires at least: 6.6
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: mits
+*/
+
+/* Стилі підключаються з каталогу css/ (див. functions.php). */

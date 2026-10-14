@@ -1,0 +1,21 @@
+/* Поля MITS Core в адмінці. */
+.mits-fields th { width: 220px; }
+.mits-fields__heading th { padding-bottom: 0; }
+.mits-fields__heading h2, .mits-fields__heading h3 { margin: 1.2em 0 0; padding-top: 1em; border-top: 1px solid #dcdcde; }
+.mits-box-help { margin: 8px 0 12px; }
+.mits-langs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mits-langs__label { display: block; font-weight: 600; margin-bottom: 4px; color: #50575e; }
+@media (max-width: 960px) { .mits-langs { grid-template-columns: 1fr; } }
+.mits-repeater__rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.mits-repeater__row { display: flex; gap: 8px; align-items: flex-start; padding: 8px; background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 4px; }
+.mits-repeater--simple .mits-repeater__row { padding: 4px 8px; }
+.mits-repeater__fields { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.mits-repeater__label { display: block; font-size: 12px; color: #50575e; }
+.mits-repeater__actions { display: flex; gap: 6px; padding-top: 2px; }
+.mits-repeater__actions .button-link { text-decoration: none; font-size: 16px; line-height: 1; }
+.mits-repeater .mits-repeater { margin-top: 4px; }
+.mits-repeater .mits-repeater .mits-repeater__row { background: #fff; }
+.mits-image-field { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mits-image-field .mits-image-value[type=text] { flex: 1 1 100%; }
+.mits-image-preview { max-width: 120px; max-height: 80px; background: #1d2327; padding: 2px; }
+.mits-image-preview[hidden] { display: none; }

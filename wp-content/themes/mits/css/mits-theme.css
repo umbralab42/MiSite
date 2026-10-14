@@ -1,0 +1,22 @@
+/* mits-theme.css: власні доповнення теми (раніше — «Додатковий CSS» у Customizer
+   та дрібниці, що з'явилися з переходом на нову тему). Підключається останнім. */
+
+/* Колір пунктів підменю (класи submenu-* задаються пунктам меню в «Вигляд → Меню»). */
+.mits-nav__menu li.submenu-blue   > .sub-menu li a { color: #569DE6; }
+.mits-nav__menu li.submenu-pink   > .sub-menu li a { color: #E662A2; }
+.mits-nav__menu li.submenu-orange > .sub-menu li a { color: #DF742E; }
+
+/* Іконка на сторінці 404: SVG замість шрифту іконок старої теми. */
+#Error_404 .error_pic i { display: inline-block; }
+#Error_404 .error_pic i svg { width: 0.961em; height: 1em; vertical-align: top; }
+
+/* Посторінкова навігація в архіві новин (з'являється, якщо новин більше 12). */
+.mits-news-archive .navigation.pagination { margin-top: 40px; text-align: center; }
+.mits-news-archive .nav-links { display: inline-flex; gap: 8px; }
+.mits-news-archive .page-numbers { display: inline-block; min-width: 40px; padding: 8px 12px; border: 1px solid rgba(255,255,255,.2); border-radius: 8px; color: #fff; }
+.mits-news-archive .page-numbers.current { background: #569DE6; border-color: #569DE6; }
+
+/* «Крутилка» Contact Form 7 (з'являється під час надсилання) не займає місця у формі,
+   щоб картка форми мала ту саму висоту, що й у затвердженому дизайні. */
+.mits-form-card .wpcf7-form { position: relative; }
+.mits-form-card .wpcf7-spinner { position: absolute; left: 50%; bottom: -32px; margin: 0 0 0 -12px; }

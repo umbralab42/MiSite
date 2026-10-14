@@ -1,0 +1,173 @@
+/*
+ * MITS Shared Component Styles
+ * Loaded on the front-end AND in the block/classic editor via add_editor_style().
+ * Keep only styles that must look identical in both contexts.
+ */
+
+/* ---- Section title ---- */
+.mits-section__title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 48px;
+  letter-spacing: 8px;
+  color: #ffffff;
+}
+.mits-section__title--small {
+  font-size: 32px;
+  letter-spacing: 4px;
+}
+
+/* ---- Contacts block ---- */
+.mits-contacts-block { background: #1c1c1c; padding: 40px 24px; }
+.mits-contacts-block h2 { text-align: center; font-size: 36px; font-weight: 700; letter-spacing: 8px; color: #ffffff; margin-bottom: 32px; }
+.mits-contacts-block__item { display: flex; align-items: flex-start; gap: 12px; color: #d8d8d8; margin-bottom: 20px; }
+.mits-contacts-block__item a { color: #d8d8d8; }
+.mits-contacts-block__social { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ---- Contacts section ---- */
+.mits-contacts { background: #000000; border-radius: 0 0 48px 48px; padding-bottom: 48px; position: relative; z-index: 1; margin-bottom: -48px; }
+.mits-contacts__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.mits-contacts__info {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.mits-contacts__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 15px;
+  color: #d8d8d8;
+}
+.mits-contacts__item a {
+  color: #d8d8d8;
+  text-decoration: none;
+}
+.mits-contacts__item a:hover { color: #569ce6; }
+.mits-contacts__icon { font-size: 20px; flex-shrink: 0; }
+.mits-contacts__social {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.mits-contacts__social a {
+  display: inline-block;
+  line-height: 1;
+}
+.mits-contacts__social svg {
+  width: 42px;
+  height: 42px;
+}
+
+@media (max-width: 768px) {
+  .mits-contacts__wrapper { grid-template-columns: 1fr; }
+}
+
+/* ---- Contact form ---- */
+.mits-form-section {
+  background: url('../images/vr-contact-bg.jpg') center/cover no-repeat;
+  position: relative;
+  margin-top: -48px;
+  padding-top: 80px;
+  padding-bottom: 64px;
+  border-radius: 0 0 48px 48px;
+  overflow: hidden;
+  z-index: 0;
+}
+.mits-form-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+}
+.mits-form-section .mits-container {
+  position: relative;
+  z-index: 1;
+}
+.mits-form-card {
+  max-width: 580px;
+  margin: 0 auto;
+  background: #000000;
+  border-radius: 20px;
+  padding: 40px 48px;
+}
+.mits-form,
+.mits-form-section .wpcf7-form {
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.mits-form-section .wpcf7-form p {
+  margin: 0;
+  display: contents;
+}
+.mits-form input,
+.mits-form textarea,
+.mits-form-section .wpcf7-form input:not([type="submit"]),
+.mits-form-section .wpcf7-form textarea {
+  width: 100%;
+  padding: 16px 22px;
+  background: #1c1c1c;
+  border: 1px solid #363636;
+  border-radius: 8px;
+  color: #569DE6;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.mits-form input::placeholder,
+.mits-form textarea::placeholder,
+.mits-form-section .wpcf7-form input::placeholder,
+.mits-form-section .wpcf7-form textarea::placeholder { color: #569DE6; }
+.mits-form input:focus,
+.mits-form textarea:focus,
+.mits-form-section .wpcf7-form input:focus,
+.mits-form-section .wpcf7-form textarea:focus {
+  border-color: #936ef6;
+  background: #262626;
+}
+.mits-form button,
+.mits-form-section .wpcf7-form input[type="submit"] {
+  align-self: center;
+  margin-top: 8px;
+  display: inline-block;
+  padding: 14px 36px;
+  background: linear-gradient(90deg, #06518a, #038cb6);
+  color: #000000;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.mits-form button:hover,
+.mits-form-section .wpcf7-form input[type="submit"]:hover {
+  background: linear-gradient(90deg, #0d78b8, #2ab4c8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(3, 140, 182, 0.4);
+  color: #000000;
+}
+.mits-form-section .wpcf7-not-valid-tip { color: #ff6b6b; font-size: 13px; margin-top: -8px; }
+.mits-form-section .wpcf7-response-output {
+  margin-top: 8px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: 1px solid #936ef6;
+  color: #fff;
+}

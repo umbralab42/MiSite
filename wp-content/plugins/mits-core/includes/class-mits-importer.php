@@ -168,19 +168,30 @@ class Mits_Importer {
 	 * щоб звільнити ID і не лишати зайвого.
 	 */
 	private function remove_sample_content() {
-		$samples = get_posts( array(
-			'post_type'      => array( 'post', 'page', 'wpcf7_contact_form' ),
-			'post_status'    => 'any',
-			'posts_per_page' => -1,
-			'meta_query'     => array( array( 'key' => '_mits_import', 'compare' => 'NOT EXISTS' ) ), // phpcs:ignore WordPress.DB.SlowDBQuery
-		) );
-		foreach ( $samples as $p ) {
+		$removed = 0;
+		// Записи типу «post» сайт не використовує (новини — окремий тип), тож «Привіт, світ!» тощо зайві.
+		foreach ( get_posts( array( 'post_type' => 'post', 'post_status' => 'any', 'posts_per_page' => -1, 'lang' => '' ) ) as $p ) {
 			wp_delete_post( $p->ID, true );
+			++$removed;
 		}
-		foreach ( get_comments( array( 'status' => 'all' ) ) as $c ) {
-			wp_delete_comment( $c->comment_ID, true );
+		// Сторінки, створені під час встановлення WordPress (зразок і політика конфіденційності):
+		// не імпортовані й не пізніші за реєстрацію першого користувача.
+		$admins  = get_users( array( 'orderby' => 'registered', 'order' => 'ASC', 'number' => 1, 'fields' => array( 'user_registered' ) ) );
+		$install = $admins ? strtotime( $admins[0]->user_registered . ' UTC' ) + 120 : 0;
+		foreach ( get_posts( array( 'post_type' => 'page', 'post_status' => 'any', 'posts_per_page' => -1, 'lang' => '' ) ) as $p ) {
+			if ( ! get_post_meta( $p->ID, '_mits_import', true ) && $install && strtotime( get_gmt_from_date( $p->post_date ) . ' UTC' ) <= $install ) {
+				wp_delete_post( $p->ID, true );
+				++$removed;
+			}
 		}
-		$this->log( 'Видалено демонстраційний вміст: ' . count( $samples ) . ' записів.' );
+		// Типова форма, яку створює Contact Form 7 під час активації.
+		foreach ( get_posts( array( 'post_type' => 'wpcf7_contact_form', 'post_status' => 'any', 'posts_per_page' => -1 ) ) as $p ) {
+			if ( ! get_post_meta( $p->ID, '_mits_import', true ) && preg_match( '/^(Contact form 1|Контактна форма 1)$/u', $p->post_title ) ) {
+				wp_delete_post( $p->ID, true );
+				++$removed;
+			}
+		}
+		$this->log( 'Видалено демонстраційний вміст WordPress: ' . $removed . ' записів.' );
 	}
 
 	/**
@@ -1011,8 +1022,11 @@ class Mits_Importer {
 				'post_title' => $p->text( 'h1.mits-teacher-single__name' ),
 				'post_name'  => basename( rtrim( $p->path, '/' ) ),
 			) );
-			update_post_meta( $id, '_teacher_position', $p->text( '.mits-teacher-single__position' ) );
-			update_post_meta( $id, '_teacher_grade', $p->text( '.mits-teacher-single__grade' ) );
+			// Без обрізання пробілів по краях: у статичній копії вони є й впливають на перенесення рядків.
+			foreach ( array( '_teacher_position' => '.mits-teacher-single__position', '_teacher_grade' => '.mits-teacher-single__grade' ) as $key => $sel ) {
+				$node = $p->one( $sel );
+				update_post_meta( $id, $key, wp_slash( $node ? str_replace( "\xc2\xa0", ' ', preg_replace( '/\s*\R\s*/u', ' ', $node->textContent ) ) : '' ) );
+			}
 			update_post_meta( $id, '_teacher_subjects', $subjects );
 			$desc = $p->one( '.mits-teacher-single__description-text' );
 			if ( $desc ) {

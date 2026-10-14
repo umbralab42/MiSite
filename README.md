@@ -51,6 +51,7 @@ python3 -m http.server 8081 -d ../reference/static-site &
 node compare.js --static=http://localhost:8081 --wp=http://localhost:8080 --out=/tmp/cmp --width=1440
 node compare.js --static=http://localhost:8081 --wp=http://localhost:8080 --out=/tmp/cmp390 --width=390
 node check-links.js http://localhost:8080
+node check-interactive.js http://localhost:8080
 node check-admin.js http://localhost:8080 <логін> <пароль>
 ```
 

@@ -1,0 +1,50 @@
+# .htaccess кореня сайту МІТС (Apache). Копіюється в корінь WordPress під час розгортання.
+
+Options -Indexes
+
+# --- Заголовки безпеки ---
+<IfModule mod_headers.c>
+	Header set X-Content-Type-Options "nosniff"
+	Header set X-Frame-Options "SAMEORIGIN"
+	Header set Referrer-Policy "strict-origin-when-cross-origin"
+	Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	# Базовий CSP: усе своє + Google Fonts + вбудовування YouTube. Inline-стилі й скрипти
+	# потрібні WordPress і Contact Form 7, тому 'unsafe-inline' лишається.
+	Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; frame-src 'self' blob: https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com; connect-src 'self'; worker-src 'self' blob:; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+	Header always unset X-Powered-By
+</IfModule>
+
+# --- XML-RPC вимкнено повністю ---
+<Files xmlrpc.php>
+	Require all denied
+</Files>
+
+# --- Службові файли не віддаються ---
+<FilesMatch "^(wp-config\.php|wp-config-sample\.php|readme\.html|license\.txt|\.env|composer\.(json|lock)|.*\.(sql|sql\.gz|log|bak|swp))$">
+	Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Перелічення користувачів через ?author=N (дублюється в плагіні mits-core).
+RewriteCond %{REQUEST_URI} !^/wp-admin [NC]
+RewriteCond %{QUERY_STRING} (^|&)author=\d+ [NC]
+RewriteRule ^ - [F,L]
+# PHP у каталозі завантажень та інших каталогах wp-content/wp-includes не виконується.
+RewriteRule ^wp-content/uploads/.*\.(php[0-9]?|phtml|phar)$ - [F,L,NC]
+RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+RewriteRule ^wp-includes/theme-compat/ - [F,L]
+</IfModule>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

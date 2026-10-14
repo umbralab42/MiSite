@@ -1,0 +1,16 @@
+# wp-content/uploads/.htaccess — у каталозі завантажень жоден скрипт не виконується.
+<FilesMatch "\.(?i:php[0-9]?|phtml|phar|pl|py|cgi|sh|shtml)$">
+	Require all denied
+</FilesMatch>
+<IfModule mod_php.c>
+	php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+	php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+	php_flag engine off
+</IfModule>
+Options -Indexes -ExecCGI
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8 .phar

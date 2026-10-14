@@ -1,0 +1,71 @@
+# Локальна копія сайту МІТС: WordPress + MariaDB.
+#
+#   cp .env.example .env        # за бажанням змінити паролі
+#   docker compose up -d        # піднімає базу й WordPress на http://localhost:8080
+#   docker compose run --rm cli bash /project/bin/setup.sh   # встановлення, плагіни, імпорт
+#
+# Тема й плагін mits-core монтуються з репозиторію, тож зміни в коді видно одразу.
+# Базу й ядро WordPress зберігають іменовані томи; `docker compose down -v` видаляє все.
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-mits}
+      MARIADB_USER: ${DB_USER:-mits}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-mits-local-only}
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      retries: 20
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    # mod_headers потрібен для заголовків безпеки з .htaccess (на хостингу він увімкнений).
+    command: ["bash", "-c", "a2enmod headers >/dev/null && echo 'expose_php = Off' > /usr/local/etc/php/conf.d/zz-mits.ini && exec docker-entrypoint.sh apache2-foreground"]
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WP_PORT:-8080}:80"
+    environment: &wpenv
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: ${DB_NAME:-mits}
+      WORDPRESS_DB_USER: ${DB_USER:-mits}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-mits-local-only}
+      # Нестандартний префікс таблиць (не wp_ і не старий wp_mits2).
+      WORDPRESS_TABLE_PREFIX: ${DB_PREFIX:-mk7_}
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', 'local' );
+        define( 'DISALLOW_FILE_EDIT', true );
+        define( 'WP_AUTO_UPDATE_CORE', 'minor' );
+        define( 'WP_HOME', getenv( 'WP_HOME' ) ?: 'http://localhost:${WP_PORT:-8080}' );
+        define( 'WP_SITEURL', WP_HOME );
+    volumes: &wpvolumes
+      - wordpress:/var/www/html
+      - ./wp-content/themes/mits:/var/www/html/wp-content/themes/mits
+      - ./wp-content/plugins/mits-core:/var/www/html/wp-content/plugins/mits-core
+      - ./deploy/htaccess:/var/www/html/.htaccess:ro
+      - .:/project:ro
+
+  cli:
+    image: wordpress:cli-php8.3
+    profiles: ["tools"]
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *wpenv
+      WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+    volumes: *wpvolumes
+    working_dir: /var/www/html
+
+volumes:
+  db:
+  wordpress:

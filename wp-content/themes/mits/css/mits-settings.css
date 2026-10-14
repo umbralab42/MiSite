@@ -1,0 +1,70 @@
+/* mits-settings.css: правила, перенесені з betheme (mfn-dynamic-inline-css, mfn-custom-inline-css),
+ * які застосовуються до розмітки сайту. Згенеровано tools/extract-betheme-css.js
+ * з reference/static-site (93 сторінок). Далі редагується вручну. */
+
+/* ---- mfn-dynamic-inline-css ---- */
+html { background-color: rgb(13, 13, 15); }
+#Wrapper, #Content { background-color: rgb(168, 85, 247); }
+body, input[type="text"], input[type="tel"], input[type="email"], textarea, input[type="date"], input[type="password"], input[type="url"], select { font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+h2, h4, h1, h3 { font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+body { font-size: 15px; line-height: 28px; font-weight: 400; letter-spacing: 0px; }
+h1 { font-size: 60px; line-height: 65px; font-weight: 500; letter-spacing: 0px; }
+h2 { font-size: 48px; line-height: 55px; font-weight: 500; letter-spacing: 0px; }
+h3 { font-size: 30px; line-height: 40px; font-weight: 400; letter-spacing: 0px; }
+h4 { font-size: 20px; line-height: 30px; font-weight: 600; letter-spacing: 0px; }
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+body { font-size: 13px; line-height: 24px; font-weight: 400; letter-spacing: 0px; }
+h1 { font-size: 51px; line-height: 55px; font-weight: 500; letter-spacing: 0px; }
+h2 { font-size: 41px; line-height: 47px; font-weight: 500; letter-spacing: 0px; }
+h3 { font-size: 26px; line-height: 34px; font-weight: 400; letter-spacing: 0px; }
+h4 { font-size: 17px; line-height: 26px; font-weight: 600; letter-spacing: 0px; }
+}
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+body { font-size: 13px; line-height: 21px; font-weight: 400; letter-spacing: 0px; }
+h1 { font-size: 45px; line-height: 49px; font-weight: 500; letter-spacing: 0px; }
+h2 { font-size: 36px; line-height: 41px; font-weight: 500; letter-spacing: 0px; }
+h3 { font-size: 23px; line-height: 30px; font-weight: 400; letter-spacing: 0px; }
+h4 { font-size: 15px; line-height: 23px; font-weight: 600; letter-spacing: 0px; }
+}
+@media only screen and (max-width: 479px) {
+body { font-size: 13px; line-height: 19px; font-weight: 400; letter-spacing: 0px; }
+h1 { font-size: 36px; line-height: 39px; font-weight: 500; letter-spacing: 0px; }
+h2 { font-size: 29px; line-height: 33px; font-weight: 500; letter-spacing: 0px; }
+h3 { font-size: 18px; line-height: 24px; font-weight: 400; letter-spacing: 0px; }
+h4 { font-size: 13px; line-height: 19px; font-weight: 600; letter-spacing: 0px; }
+}
+@media only screen and (min-width: 1240px) {
+#Wrapper { max-width: 1920px; }
+.container, .section_wrapper { max-width: 1900px; }
+}
+@media only screen and (max-width: 767px) {
+#Wrapper { max-width: calc(100% - 67px); }
+.container, .content_wrapper .section_wrapper { padding-left: 33px; padding-right: 33px; max-width: 550px !important; }
+}
+body { --mfn-button-font-family: "Inter"; --mfn-button-font-size: 18px; --mfn-button-font-weight: 400; --mfn-button-font-style: inherit; --mfn-button-letter-spacing: 0px; --mfn-button-padding: 10px 20px 10px 20px; --mfn-button-border-width: 0; --mfn-button-border-radius: 3px 3px 3px 3px; --mfn-button-gap: 10px; --mfn-button-transition: 0.2s; --mfn-button-color: #626262; --mfn-button-color-hover: #626262; --mfn-button-bg: #dbdddf; --mfn-button-bg-hover: #d3d3d3; --mfn-button-border-color: transparent; --mfn-button-border-color-hover: transparent; --mfn-button-icon-color: #626262; --mfn-button-icon-color-hover: #626262; --mfn-button-box-shadow: unset; --mfn-button-theme-color: #ffffff; --mfn-button-theme-color-hover: #ffffff; --mfn-button-theme-bg: #0095eb; --mfn-button-theme-bg-hover: #007cc3; --mfn-button-theme-border-color: transparent; --mfn-button-theme-border-color-hover: transparent; --mfn-button-theme-icon-color: #ffffff; --mfn-button-theme-icon-color-hover: #ffffff; --mfn-button-theme-box-shadow: unset; --mfn-button-shop-color: #ffffff; --mfn-button-shop-color-hover: #ffffff; --mfn-button-shop-bg: #0095eb; --mfn-button-shop-bg-hover: #007cc3; --mfn-button-shop-border-color: transparent; --mfn-button-shop-border-color-hover: transparent; --mfn-button-shop-icon-color: #626262; --mfn-button-shop-icon-color-hover: #626262; --mfn-button-shop-box-shadow: unset; --mfn-button-action-color: #626262; --mfn-button-action-color-hover: #626262; --mfn-button-action-bg: #dbdddf; --mfn-button-action-bg-hover: #d3d3d3; --mfn-button-action-border-color: transparent; --mfn-button-action-border-color-hover: transparent; --mfn-button-action-icon-color: #626262; --mfn-button-action-icon-color-hover: #626262; --mfn-button-action-box-shadow: unset; --mfn-product-list-gallery-slider-arrow-bg: #ffffff; --mfn-product-list-gallery-slider-arrow-bg-hover: #ffffff; --mfn-product-list-gallery-slider-arrow-color: #000000; --mfn-product-list-gallery-slider-arrow-color-hover: #000000; --mfn-product-list-gallery-slider-dots-bg: rgba(0,0,0,0.3); --mfn-product-list-gallery-slider-dots-bg-active: #000000; --mfn-product-list-gallery-slider-padination-bg: transparent; --mfn-product-list-gallery-slider-dots-size: 8px; --mfn-product-list-gallery-slider-nav-border-radius: 0px; --mfn-product-list-gallery-slider-nav-offset: 0px; --mfn-product-list-gallery-slider-dots-gap: 5px; }
+@media only screen and (max-width: 959px) {
+body {  }
+}
+@media only screen and (max-width: 768px) {
+body {  }
+}
+@media only screen and (min-width: 1240px) {
+body.error404 { padding-left: 0px !important; padding-right: 0px !important; }
+}
+body { --mfn-clients-tiles-hover: #3385d7; --mfn-icon-box-icon: #3385d7; --mfn-section-tabber-nav-active-color: #3385d7; --mfn-sliding-box-bg: #3385d7; --mfn-woo-body-color: #000000; --mfn-woo-heading-color: #000000; --mfn-woo-themecolor: #3385d7; --mfn-woo-bg-themecolor: #3385d7; --mfn-woo-border-themecolor: #3385d7; --mfn-blocks-checkout-summary-bg: rgba(0,0,0,0.03); }
+body { color: rgb(0, 0, 0); }
+#Error_404 .error_pic i { color: rgb(51, 133, 215); }
+a { color: rgb(51, 133, 215); }
+a:hover { color: rgb(94, 160, 232); }
+::selection { background-color: rgb(51, 133, 215); color: white; }
+h1, h1 a, h1 a:hover { color: rgb(31, 46, 136); }
+h2, h2 a, h2 a:hover { color: rgb(31, 46, 136); }
+h3, h3 a, h3 a:hover { color: rgb(31, 46, 136); }
+h4, h4 a, h4 a:hover { color: rgb(31, 46, 136); }
+.the_content_wrapper:not(.is-elementor) ul { color: rgb(115, 126, 134); }
+input[type="email"], input[type="tel"], input[type="text"], textarea, input[type="date"], input[type="number"], input[type="password"], input[type="search"], input[type="url"], select { color: rgb(98, 98, 98); background-color: rgb(255, 255, 255); border-color: rgb(235, 235, 235); }
+::-webkit-input-placeholder { color: rgb(146, 146, 146); }
+input[type="email"]:focus, input[type="tel"]:focus, input[type="text"]:focus, textarea:focus, input[type="date"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="url"]:focus, select:focus { color: rgb(0, 137, 247); background-color: rgb(233, 245, 252); border-color: rgb(213, 229, 238); }
+:focus::-webkit-input-placeholder { color: rgb(146, 146, 146); }
+
+/* ---- mfn-custom-inline-css ---- */

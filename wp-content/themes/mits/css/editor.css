@@ -1,0 +1,3 @@
+/* Редактор блоків: темний фон, як на сайті. */
+body.editor-styles-wrapper { background: #000; color: #fff; font-family: "Montserrat", sans-serif; }
+.editor-styles-wrapper a { color: #569DE6; }

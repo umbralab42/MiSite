@@ -1,0 +1,170 @@
+/* ============================================
+   HERO – image right, gradient fade, text overlay
+   ============================================ */
+.mits-hero {
+  position: relative;
+  background: #000000;
+  overflow: hidden;
+  font-family: 'Geist', sans-serif;
+}
+.mits-hero__track {
+  position: relative;
+  height: 600px;
+}
+.mits-hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+.mits-hero__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Image — right side, ~45% wide */
+.mits-hero__image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  z-index: 0;
+}
+.mits-hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+/* Gradient — fades image into black on the left edge of the image block */
+.mits-hero__image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #000000 0%, transparent 50%);
+  z-index: 1;
+  pointer-events: none;
+}
+/* Text content — over the full slide, full width */
+.mits-hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 60px 60px 80px; /* 10% of 600px track height */
+}
+.mits-hero__subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 1.12;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #d8d8d8;
+  margin-bottom: 20px;
+  max-width: 70%;
+}
+.mits-hero__title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1.12;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  color: #ffffff;
+}
+/* Social links — between title and CTA */
+.mits-hero__social {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.mits-hero__social a,
+.mits-hero__social svg {
+  color: #ffffff;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+.mits-hero__social a:hover { opacity: 1; }
+.mits-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  line-height: 1;
+  color: #ffffff;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+  text-decoration: none;
+}
+.mits-social-icon:hover { opacity: 1; color: #ffffff; }
+/* Static CTA overlay */
+.mits-hero__cta {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 14px 72px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Geist', 'Montserrat', sans-serif;
+  color: #000000 !important;
+}
+#Content .mits-hero__cta,
+#Content .mits-hero__cta:hover {
+  color: #000000 !important;
+}
+.mits-hero__cta:hover {
+  transform: translateX(-50%) !important;
+  box-shadow: none !important;
+  text-decoration: underline !important;
+}
+/* Dot navigation */
+.mits-hero__dots {
+  position: absolute;
+  bottom: 32px;
+  left: 60px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mits-hero__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+.mits-hero__dot.is-active {
+  background: #ffffff;
+  width: 24px;
+}
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .mits-hero__track { height: 760px; }
+  .mits-hero__image { width: 100%; }
+  .mits-hero__image::before {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+  }
+  .mits-hero__content {
+    padding: 76px 24px 160px; /* 10% of 760px track height */
+  }
+  .mits-hero__title { font-size: 52px; }
+  .mits-hero__cta  { bottom: 60px; font-size: 15px; padding: 12px 24px; }
+  .mits-hero__dots { bottom: 24px; left: 24px; }
+}

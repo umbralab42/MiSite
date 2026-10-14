@@ -1,0 +1,2117 @@
+/* ============================================
+   MITS Front Page – Figma Mockup (Dark Theme)
+   Version 4.6.0
+   ============================================ */
+
+/* ---------- Reset for front page ---------- */
+#mits-front {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #ffffff;
+  line-height: 1.6;
+  background: #000000;
+}
+#mits-front *,
+#mits-front *::before,
+#mits-front *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- Layout container ---------- */
+.mits-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+.mits-section {
+  padding: 80px 0;
+}
+
+/* ---------- Gradient text helpers ---------- */
+.grad-orange {
+  background: linear-gradient(90deg, #df742d, #e662a1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-cyan {
+  background: linear-gradient(90deg, #569ce6, #57aaa8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---------- Buttons ---------- */
+.mits-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  border: none;
+  font-family: inherit;
+}
+/* PDF: pill shape (radius = height/2 = 38.5pt), gradient #06518a → #038cb6 (dark-left → light-right) */
+.mits-btn--primary {
+  background: linear-gradient(90deg, #06518a, #038cb6);
+  color: #000000;
+}
+.mits-btn--primary:hover {
+  background: linear-gradient(90deg, #0d78b8, #2ab4c8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(3, 140, 182, 0.4);
+  color: #000000;
+}
+.mits-btn--outline {
+  background: transparent;
+  color: #936ef6;
+  border: 1px solid #936ef6;
+  padding: 10px 28px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.mits-btn--outline:hover {
+  background: #936ef6;
+  color: #ffffff;
+}
+
+/* =============================================
+   CUSTOM NAV BAR
+   — Figma: 1920px wide, items at y_top=95 y_bot=127 (32pt)
+   — Nav height: ~150px at 1920px → 120px at 1440px
+   — Logo ~300px wide at 1920px → ~225px (auto) at 1440px
+   — Menu font: 32px at 1920px → 22px at 1440px
+   — Gap between items: ~90px at 1920px → 56px at 1440px
+   ============================================= */
+.mits-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #000000;
+  border-bottom: 1px solid #1a1a1a;
+  height: 120px;
+  overflow: visible;
+}
+.mits-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+/* Logo — 80px height → ~209px wide (300:115 aspect ratio, scaled to 1440px) */
+.mits-nav__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.mits-nav__logo img {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Menu — Geist font, 22px, #d8d8d8 — matches PDF 32pt in 1920px scaled to 1440px */
+.mits-nav__menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+.mits-nav__menu li a {
+  font-family: "Geist", "Montserrat", -apple-system, sans-serif;
+  color: #d8d8d8;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0;
+  white-space: nowrap;
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 4px;
+}
+.mits-nav__menu li a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #936ef6, #7155bc);
+  transition: width 0.25s ease;
+}
+.mits-nav__menu li a:hover {
+  color: #ffffff;
+}
+.mits-nav__menu li a:hover::after {
+  width: 100%;
+}
+
+/* Remove WP's default menu-item styling; each li is a flex row */
+.mits-nav__menu li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 18px;
+  position: relative;
+}
+.mits-nav__menu li:first-child {
+  padding-left: 0;
+}
+.mits-nav__menu li:last-child {
+  padding-right: 0;
+}
+
+/* ---- Sub-menu dropdown ---- */
+.mits-nav__menu .sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 8px 0;
+  z-index: 1100;
+  list-style: none;
+  margin: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.mits-nav__menu li:hover > .sub-menu,
+.mits-nav__menu li.is-open > .sub-menu {
+  display: block;
+}
+.mits-nav__menu .sub-menu li {
+  display: block;
+  padding: 0;
+  gap: 0;
+}
+.mits-nav__menu .sub-menu li:not(:last-child)::after {
+  content: '';
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  height: 1px;
+  background: #000000;
+}
+.mits-nav__menu .sub-menu li::before { display: none; }
+.mits-nav__menu .sub-menu li a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 15px;
+  color: #d8d8d8;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.mits-nav__menu .sub-menu li a::after { display: none; }
+.mits-nav__menu .sub-menu li a:hover {
+  color: #ffffff;
+  background: rgba(255,255,255,0.12);
+}
+
+/* Footer nav — sub-menus open upward */
+.mits-footer-nav .mits-nav__menu .sub-menu {
+  top: auto;
+  bottom: 100%;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
+}
+
+
+
+/* SVG arrow separator — inline, same line as the text */
+.mits-nav__menu li + li::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: url('../images/uil-arrow.svg') center / contain no-repeat;
+  opacity: 0.45;
+  flex-shrink: 0;
+  pointer-events: none;
+  margin-left: -18px;
+}
+
+/* Hide old sep elements in case any remain */
+.mits-nav__sep {
+  display: none;
+}
+
+/* ---------- Language switcher — pill toggle ---------- */
+.mits-lang-switcher { display: none !important; }
+.mits-lang-switcher__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: "Geist", "Montserrat", -apple-system, sans-serif;
+  color: #888888;
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  line-height: 1;
+  transition: color 0.2s, background 0.2s;
+}
+.mits-lang-switcher__btn:hover {
+  color: #cccccc;
+}
+.mits-lang-switcher__btn.is-active {
+  background: linear-gradient(90deg, #06518a, #038cb6);
+  color: #ffffff;
+}
+.mits-lang-switcher__sep {
+  display: none;
+}
+
+/* CTA button — matches Figma "Консультація" button at far right */
+.mits-nav__cta {
+  flex-shrink: 0;
+  padding: 14px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Geist", "Montserrat", -apple-system, sans-serif;
+}
+
+/* ---- uil_arrow — fixed at viewport top, outside nav (avoids sticky/fixed conflict) ---- */
+.mits-nav__arrow {
+  position: fixed;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1002;
+  background: #1a1a1a;
+  border: none;
+  border-radius: 0 0 20px 20px;
+  width: 110px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  user-select: none;
+  touch-action: none;
+  outline: none;
+}
+.mits-nav__arrow:hover { background: #252525; }
+.mits-nav__arrow svg {
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+}
+.mits-nav__arrow[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+/* ============================================
+   DROPDOWN PANEL  — matches Drop down.pdf (1920×210px Figma)
+   Single horizontal row: Logo | Nav (flex:1) | Phones | Email | CTA
+   BG #363636, border-bottom #141414
+   ============================================ */
+.mits-dropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background: #363636;
+  border-bottom: 2px solid #141414;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+  pointer-events: none;
+  color: #ffffff;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.mits-dropdown.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Single flex row — PDF canvas 1920×210px, scaled ×1.5 */
+.mits-dropdown__inner {
+  display: flex;
+  align-items: center;
+  gap: 84px;
+  height: 315px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 90px;
+}
+
+/* Logo */
+.mits-dropdown__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.mits-dropdown__logo img { display: block; height: 96px; width: auto; }
+
+/* Топ новин */
+.mits-dropdown__topnews {
+  font-family: "Geist", "Montserrat", -apple-system, sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  flex: 1;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.mits-dropdown__topnews:hover { color: #569de6; }
+
+/* Phones column */
+.mits-dropdown__phones-col {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  flex-shrink: 0;
+}
+.mits-dropdown__phones-col > svg { flex-shrink: 0; margin-top: 4px; }
+.mits-dropdown__phones-col > div {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.mits-dropdown__phones-col a {
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.mits-dropdown__phones-col a:hover { color: #569de6; }
+
+/* Email + social column */
+.mits-dropdown__contacts-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 21px;
+  flex-shrink: 0;
+}
+.mits-dropdown__email {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 24px;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.mits-dropdown__email:hover { color: #569de6; }
+.mits-dropdown__social {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.mits-dropdown__social-link {
+  display: flex;
+  align-items: center;
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.mits-dropdown__social-link:hover { opacity: 1; transform: scale(1.1); }
+
+@media (max-width: 900px) {
+  .mits-dropdown { height: auto; }
+  .mits-dropdown__inner {
+    flex-direction: column;
+    height: auto;
+    min-height: 35vh;
+    max-height: 90vh;
+    overflow-y: auto;
+    gap: 20px;
+    padding: 28px 36px 52px;
+    align-items: flex-start;
+    background: #363636;
+  }
+  .mits-dropdown__topnews { flex: none; font-size: 24px; color: #ffffff; }
+  .mits-dropdown__contacts-col { align-items: flex-start; }
+  .mits-dropdown__phones-col a { font-size: 18px; color: #ffffff; }
+  .mits-dropdown__email { font-size: 18px; color: #ffffff; }
+}
+
+@media (max-width: 600px) {
+  .mits-dropdown { height: auto; }
+  .mits-dropdown__inner {
+    gap: 16px;
+    padding: 20px 20px 48px;
+    min-height: 35vh;
+    max-height: 95vh;
+    overflow-y: auto;
+    background: #363636;
+  }
+  .mits-dropdown__logo img { height: 52px; }
+  .mits-dropdown__topnews { font-size: 19px; color: #ffffff; }
+  .mits-dropdown__phones-col > svg { width: 30px; height: 30px; }
+  .mits-dropdown__phones-col a { font-size: 14px; color: #ffffff; }
+  .mits-dropdown__phones-col > div { gap: 6px; }
+  .mits-dropdown__email { font-size: 14px; gap: 10px; color: #ffffff; }
+  .mits-dropdown__email > svg { width: 30px; height: 30px; flex-shrink: 0; }
+  .mits-dropdown__social { gap: 12px; }
+  .mits-dropdown__social-link svg { width: 30px; height: 30px; }
+}
+
+/* ============================================
+   CUSTOM FOOTER
+   ============================================ */
+.mits-footer {
+  background: #000000;
+  border-top: 1px solid #1a1a1a;
+  padding: 48px 0 28px;
+}
+.mits-footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+.mits-footer__logo img {
+  height: 50px;
+  width: auto;
+}
+.mits-footer__menu {
+  display: flex;
+  list-style: none;
+  gap: 36px;
+  margin: 0;
+  padding: 0;
+}
+.mits-footer__menu li {
+  list-style: none;
+}
+.mits-footer__menu li a {
+  font-family: "Geist", "Montserrat", -apple-system, sans-serif;
+  color: #d8d8d8;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.mits-footer__menu li a:hover { color: #ffffff; }
+.mits-footer__cta { padding: 12px 28px; font-size: 15px; }
+.mits-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid #1a1a1a;
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+}
+.mits-footer-nav__copyright {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 90px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  border-top: 1px solid #1a1a1a;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .mits-container,
+  .mits-nav__inner { padding: 0 32px; }
+  .mits-nav__menu { gap: 24px; }
+  .mits-nav__menu li a { font-size: 15px; }
+}
+/* Hamburger button — hidden on desktop */
+.mits-nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+.mits-nav__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #d8d8d8;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+/* Animate to ✕ when open */
+.mits-nav__hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mits-nav__hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mits-nav__hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+  .mits-nav { height: auto; }
+  .mits-nav__inner { padding: 16px 24px; flex-wrap: nowrap; gap: 8px; }
+  .mits-nav__hamburger { display: flex; }
+  /* Menu hidden by default; drops below nav when .is-open */
+  .mits-nav__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: #111111;
+    border-top: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
+    flex-direction: column;
+    padding: 12px 0;
+    gap: 0;
+  }
+  /* Footer nav: menu opens upward */
+  .mits-footer-nav .mits-nav__menu {
+    top: auto;
+    bottom: 100%;
+    border-top: 1px solid #2a2a2a;
+    border-bottom: none;
+  }
+  .mits-nav__menu.is-open { display: flex; }
+  .mits-nav__menu li { padding: 0; display: block; }
+  .mits-nav__menu li a { font-size: 16px; padding: 12px 24px; display: block; padding-bottom: 12px; }
+  .mits-nav__menu li + li::before { display: none; }
+  .mits-nav__hamburger { margin-left: auto; }
+  .mits-nav__cta { padding: 10px 18px; font-size: 14px; }
+  .mits-container { padding: 0 24px; }
+  .mits-footer__top { flex-direction: column; text-align: center; }
+  .mits-footer__menu { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .mits-footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+
+/* ============================================
+   BETHEME OVERRIDES
+   ============================================ */
+/* Hide BeTheme header/footer — using our custom nav/footer */
+#Header,
+#Header_wrapper,
+.header_placeholder,
+#Top_bar {
+  display: none;
+}
+#Footer { display: none; }
+
+/* Hide stray BeTheme UI widgets */
+#Side_slide,
+#Sliding-top,
+#back_to_top,
+#body_overlay,
+#secondary-menu {
+  display: none;
+}
+
+/* Force dark background on BeTheme wrappers */
+#Wrapper {
+  background-color: #000000;
+}
+#Content {
+  background-color: #000000;
+  overflow: hidden;
+}
+.content_wrapper,
+.sections_group {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.entry-content,
+.section_wrapper {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+/* Inner page title ---- */
+body:not(.home) .mits-page-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 4px;
+  margin: 0 0 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #2a2a2a;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Inner page content card — dark panel, max 80% wide, centered */
+body:not(.home) #Content {
+  display: flex;
+  justify-content: center;
+  padding: 0 0 80px;
+  background: #000000;
+  border-radius: 0 0 48px 48px;
+  position: relative;
+  z-index: 1;
+}
+body:not(.home) .content_wrapper {
+  width: 80%;
+  max-width: 1152px;
+  background: transparent;
+  border-radius: 0;
+  padding: 48px 60px;
+  box-shadow: none;
+}
+body:not(.home) .sections_group {
+  width: 100%;
+  padding: 0;
+}
+body:not(.home) .section_wrapper {
+  padding: 0;
+  max-width: 100%;
+}
+body:not(.home) .entry-content { padding: 0; }
+
+@media (max-width: 1024px) {
+  body:not(.home) .content_wrapper {
+    width: 90%;
+    padding: 36px 32px;
+  }
+}
+@media (max-width: 640px) {
+  body:not(.home) .content_wrapper {
+    width: 90%;
+    border-radius: 12px;
+    padding: 28px 20px;
+  }
+}
+
+/* Override BeTheme heading and link colors inside front-page template */
+#mits-front h1, #mits-front h2, #mits-front h3,
+#mits-front h4, #mits-front h5, #mits-front h6 {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: inherit;
+}
+#mits-front a { text-decoration: none; }
+#mits-front ul, #mits-front ol { color: inherit; }
+
+/* Teacher styles moved to mits-teachers.css */
+
+/* ============================================
+   NEWS SINGLE PAGE
+   ============================================ */
+
+/*
+ * Betheme's style-colors.php emits:
+ *   body { color: #626262; background-color: #FCFCFC }
+ * and BeBuilder wraps content in .section.mcb-section > .section_wrapper > .column_attr
+ * All of these need !important to beat that dynamic stylesheet.
+ */
+.mits-news-single {
+  background: #000;
+  color: #d8d8d8;
+}
+
+/* BeBuilder section/column containers */
+.mits-news-single .section,
+.mits-news-single .mcb-section,
+.mits-news-single .section_wrapper,
+.mits-news-single .column_attr {
+  background-color: transparent;
+  color: #d8d8d8;
+}
+
+/* All inline text elements inside the news body */
+.mits-news-single p,
+.mits-news-single li,
+.mits-news-single span,
+.mits-news-single td,
+.mits-news-single th,
+.mits-news-single blockquote {
+  color: #d8d8d8;
+}
+
+/* Headings */
+.mits-news-single h1,
+.mits-news-single h2,
+.mits-news-single h3,
+.mits-news-single h4,
+.mits-news-single h5,
+.mits-news-single h6 {
+  color: #ffffff;
+}
+
+/* Links */
+.mits-news-single a         { color: #569de6; }
+.mits-news-single a:hover   { color: #ffffff; }
+
+.mits-news-single__image {
+  width: 100%;
+  max-height: 520px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+.mits-news-single__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mits-news-single__meta {
+  margin-bottom: 16px;
+}
+.mits-news-single__date {
+  font-size: 14px;
+  color: #936ef6;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.mits-news-single__title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 32px;
+  line-height: 1.2;
+  letter-spacing: 2px;
+}
+
+.mits-news-single__body {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+.mits-news-single__body p    { margin-bottom: 16px; }
+.mits-news-single__body ul,
+.mits-news-single__body ol   { padding-left: 24px; margin-bottom: 16px; }
+.mits-news-single__body li   { margin-bottom: 6px; }
+.mits-news-single__body h1,
+.mits-news-single__body h2,
+.mits-news-single__body h3,
+.mits-news-single__body h4,
+.mits-news-single__body h5,
+.mits-news-single__body h6 {
+  margin: 32px 0 16px;
+}
+
+.mits-news-single__back { margin-top: 16px; }
+
+@media (max-width: 768px) {
+  .mits-news-single__title { font-size: 26px; }
+}
+
+/* ============================================
+   NEWS ARCHIVE PAGE
+   ============================================ */
+.mits-news-archive { background: #000; color: #d8d8d8; }
+
+.mits-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px 32px;
+  margin-top: 16px;
+}
+
+.mits-news-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  transition: transform 0.2s;
+}
+.mits-news-card:hover { transform: translateY(-4px); }
+
+.mits-news-card__image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+.mits-news-card__image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #946FF6;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.mits-news-card:hover .mits-news-card__image-wrap::after { opacity: 0; }
+.mits-news-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+.mits-news-card:hover .mits-news-card__image { transform: scale(1.04); }
+.mits-news-card__image--placeholder {
+  width: 100%;
+  height: 100%;
+  background: #1c1c1c;
+}
+
+.mits-news-card__info { padding: 20px; }
+
+.mits-news-card__date {
+  display: block;
+  font-size: 13px;
+  color: #936ef6;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.mits-news-card__title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.mits-news-card__excerpt {
+  font-size: 14px;
+  color: #a0a0a0;
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .mits-news-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   FRONT PAGE SECTIONS  (moved from inline <style>)
+   ============================================ */
+
+/* Section title */
+.mits-section__title {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 48px;
+}
+
+/* ЧОМУ МИ? */
+.mits-why { background: #000000; }
+.mits-why__text {
+  max-width: 860px;
+  margin: 0 auto 60px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid #262626;
+  border-radius: 12px;
+  padding: 32px 40px;
+  color: #d8d8d8;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: center;
+}
+.mits-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.mits-stat__number {
+  display: block;
+  font-size: 56px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #936ef6, #7155bc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.mits-stat__label {
+  display: block;
+  font-size: 14px;
+  color: #d8d8d8;
+}
+
+/* ПЕРЕВАГИ — акордеон */
+.mits-advantages { background: #000000; }
+.mits-advantages__accordion { max-width: 800px; margin: 0 auto; }
+.mits-adv-item { border-bottom: 1px solid #262626; }
+.mits-adv-item:first-child { border-top: 1px solid #262626; }
+.mits-adv-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: padding-left 0.2s;
+}
+.mits-adv-item__header:hover { background: none; }
+.mits-adv-item__header:hover:not([data-no-content]) { padding-left: 8px; }
+.mits-adv-item__header[data-no-content] { cursor: default; }
+.mits-adv-item__chevron {
+  font-size: 22px;
+  color: #d8d8d8;
+  flex-shrink: 0;
+  margin-left: 12px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.mits-adv-item__header[aria-expanded="true"] .mits-adv-item__chevron {
+  transform: rotate(90deg);
+}
+.mits-adv-item__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.mits-adv-item__header[aria-expanded="true"] + .mits-adv-item__body {
+  max-height: 600px;
+}
+.mits-adv-item__body-inner {
+  padding: 0 0 20px;
+  color: #d8d8d8;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.mits-adv-item__body-inner p { margin: 0 0 10px; }
+.mits-adv-item__body-inner p:last-child { margin-bottom: 0; }
+.mits-adv-item__body-inner ul { margin: 0 0 10px; padding-left: 20px; }
+.mits-adv-item__body-inner li { margin-bottom: 4px; }
+
+/* IT НАВЧАННЯ */
+.mits-education { background: #000000; }
+.mits-education__title {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  margin-bottom: 40px;
+  font-style: italic;
+}
+.mits-education__card {
+  background: #1c1c1c;
+  border: 1px solid #262626;
+  border-radius: 16px;
+  padding: 36px 44px;
+  max-width: 860px;
+  margin: 0 auto 40px;
+  color: #d8d8d8;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.mits-education__card strong { color: #ffffff; }
+.mits-education__card ul { list-style: none; padding-left: 16px; margin: 8px 0; }
+.mits-education__card ul li::before { content: "+"; color: #df742d; margin-right: 8px; font-weight: 700; }
+.mits-education__cta { text-align: center; }
+
+/* ДIЯЛЬНIСТЬ */
+.mits-activities { background: #000000; }
+.mits-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.mits-card {
+  background: #262626;
+  border: 1px solid #363636;
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: center;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.mits-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.4); transform: translateY(-4px); }
+.mits-card p  { font-size: 14px; color: #d8d8d8; margin-bottom: 24px; line-height: 1.6; }
+.mits-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.mits-card__header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  text-align: left;
+}
+.mits-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+}
+.mits-card__icon img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+}
+.mits-activities__cta { text-align: center; }
+
+/* НОВИНИ */
+.mits-news { background: #000000; }
+.mits-news__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.mits-news__item { border-radius: 12px; overflow: hidden; }
+.mits-news__img-link { display: block; }
+.mits-news__img { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; border-radius: 12px; }
+.mits-news__img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #946FF6;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  border-radius: 12px;
+}
+.mits-news__item:hover .mits-news__img::after { opacity: 0; }
+.mits-news__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mits-news__img--placeholder { background: linear-gradient(135deg, #262626 0%, #1c1c1c 100%); }
+.mits-news__meta { padding: 14px 0 4px; }
+.mits-news__date    { font-size: 12px; color: #df742d; font-weight: 600; }
+.mits-news__title   { font-size: 16px; font-weight: 700; margin: 6px 0 8px; }
+.mits-news__title a { color: #ffffff; text-decoration: none; }
+.mits-news__title a:hover { color: #df742d; }
+.mits-news__excerpt { font-size: 14px; color: #d8d8d8; line-height: 1.6; }
+
+/* RESPONSIVE — front-page sections */
+@media (max-width: 768px) {
+  .mits-section { padding: 60px 0; }
+  .mits-section__title { font-size: 30px; letter-spacing: 4px; }
+  .mits-stats { grid-template-columns: repeat(2, 1fr); }
+  .mits-stat__number { font-size: 40px; }
+  .mits-cards, .mits-news__grid { grid-template-columns: 1fr; }
+  .mits-education__title { font-size: 28px; }
+}
+
+/* ============================================================
+   КАФЕДРА PAGE TEMPLATE
+   ============================================================ */
+
+/* Reset inner-page constraints so the template spans full width */
+.page-template-template-mits-kafedra #Content {
+  display: block !important;
+  padding: 0 !important;
+}
+.page-template-template-mits-kafedra .content_wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Hero */
+.mits-kafedra-hero {
+  background: #000000;
+  text-align: center;
+  padding-bottom: 0;
+}
+.mits-kafedra-hero__logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.mits-kafedra-hero__logo img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+.mits-kafedra-hero__title {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* About / description box */
+.mits-kafedra-about {
+  background: #000000;
+  padding-bottom: 0;
+}
+.mits-kafedra-about__box {
+  max-width: 760px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 32px 40px;
+  color: #d8d8d8;
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: center;
+}
+.mits-kafedra-about__box p { margin: 0 0 12px; }
+.mits-kafedra-about__box p:last-child { margin-bottom: 0; }
+.mits-kafedra-about__link {
+  text-align: center;
+  margin-top: 24px;
+}
+.mits-kafedra-about__link a {
+  color: #936ef6;
+  text-decoration: underline;
+  font-size: 15px;
+  transition: color 0.2s;
+}
+.mits-kafedra-about__link a:hover { color: #b49af8; }
+
+/* Specialty tiles */
+.mits-kafedra-specs {
+  background: #000000;
+  padding: 40px 0 0;
+}
+.mits-kafedra-specs__subtitle {
+  text-align: center;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin: 0 0 24px;
+}
+.mits-kafedra-specs__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.mits-kafedra-spec-tile {
+  flex: 0 0 360px;
+  max-width: 360px;
+  background: linear-gradient(135deg, #5a3fa8 0%, #7155bc 100%);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+}
+.mits-kafedra-spec-tile p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* НАВЧАННЯ heading */
+.mits-kafedra-nav-title {
+  background: #000000;
+  padding-bottom: 0;
+  text-align: center;
+}
+.mits-kafedra-section-heading {
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Activities on kafedra page — remove top padding so it flows from heading */
+.mits-kafedra-activities {
+  background: #000000;
+  padding-top: 40px;
+}
+.mits-kafedra-activities .mits-cards {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Teachers preview on kafedra page */
+.mits-kafedra-teachers {
+  background: #000000;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  text-align: center;
+}
+.mits-kafedra-teachers__grid {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  gap: 40px !important;
+  margin-top: 32px !important;
+}
+.mits-kafedra-teachers__grid .mits-teacher-card {
+  flex: 0 0 320px;
+  max-width: 320px;
+}
+.mits-kafedra-teachers__all {
+  text-align: center;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .mits-kafedra-hero__title { font-size: 40px; }
+  .mits-kafedra-section-heading { font-size: 48px; letter-spacing: 4px; }
+  .mits-kafedra-specs__grid { gap: 12px; }
+  .mits-kafedra-spec-tile { flex: 0 0 100%; max-width: 100%; }
+  .mits-kafedra-about__box { padding: 24px 20px; }
+}
+
+/* ============================================================
+   ВСТУП PAGE TEMPLATE
+   ============================================================ */
+
+/* Reset inner-page constraints so the template spans full width */
+.page-template-template-mits-vstup #Header,
+.page-template-template-mits-vstup #mfn-header-template,
+.page-template-template-mits-vstup .mfn-sticky-wrapper,
+.page-template-template-mits-vstup-sub #Header,
+.page-template-template-mits-vstup-sub #mfn-header-template,
+.page-template-template-mits-vstup-sub .mfn-sticky-wrapper { display: none !important; }
+.page-template-template-mits-vstup #Content,
+.page-template-template-mits-vstup-sub #Content {
+  display: block !important;
+  padding: 0 !important;
+}
+.page-template-template-mits-vstup .content_wrapper,
+.page-template-template-mits-vstup-sub .content_wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* ── International template: full-width content ── */
+.page-template-template-mits-international #Content {
+  display: block !important;
+  padding: 0 !important;
+}
+.page-template-template-mits-international .content_wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* ── Sub-page content block ── */
+.mits-vstup-sub-content { background: #000; padding: 60px 0 48px; }
+.mits-vstup-sub-content__card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 20px;
+  max-width: 860px;
+  margin: 0 auto 40px;
+  padding: 44px 56px;
+  text-align: center;
+}
+.mits-page__title {
+  color: #8a9baa;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: .3px;
+  margin: 0 0 20px;
+  text-transform: none;
+}
+.mits-vstup-sub-content__body {
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.65;
+}
+.mits-vstup-sub-content__body p { margin: 0 0 8px; }
+.mits-vstup-sub-content__body p:last-child { margin-bottom: 0; }
+.mits-vstup-sub-content__cta { text-align: center; margin-top: 0; }
+@media (max-width: 768px) {
+  .mits-vstup-sub-content__card { padding: 28px 20px; }
+  .mits-vstup-sub-content__body { font-size: 17px; }
+}
+
+/* ── КРОКИ ── */
+.mits-steps { background: #000; padding: 28px 0; }
+.mits-steps__flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 0;
+}
+.mits-steps__item {
+  font-size: 22px;
+  font-weight: 600;
+  color: #946ff6;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.mits-steps__arrow {
+  font-size: 22px;
+  font-weight: 400;
+  color: #946ff6;
+  padding: 0 10px;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .mits-steps__item  { font-size: 17px; }
+  .mits-steps__arrow { font-size: 17px; padding: 0 7px; }
+}
+
+/* ── ОСВІТНІ РІВНІ ── */
+.mits-vstup-levels { background: #000000; }
+.mits-vstup-levels__desc {
+  max-width: 780px;
+  margin: 0 auto 48px;
+  text-align: center;
+  color: #d8d8d8;
+  font-size: 15px;
+  line-height: 1.8;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 32px 40px;
+}
+.mits-vstup-levels__desc p { margin: 0 0 12px; }
+.mits-vstup-levels__desc p:last-child { margin-bottom: 0; }
+.mits-vstup-levels__buttons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mits-btn--level {
+  border-radius: 9999px;
+  padding: 12px 36px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 14px;
+  border: 2px solid transparent;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  transition: opacity 0.25s;
+}
+.mits-btn--level:hover { opacity: 0.85; color: #ffffff !important; }
+.mits-vstup-levels__buttons .mits-btn--level:nth-child(1) { background: #57aaa8; border-color: #57aaa8; }
+.mits-vstup-levels__buttons .mits-btn--level:nth-child(2) { background: #df742d; border-color: #df742d; }
+.mits-vstup-levels__buttons .mits-btn--level:nth-child(3) { background: #e662a1; border-color: #e662a1; }
+
+/* ── ВІДЕО ── */
+.mits-vstup-video { background: #000000; padding: 0 0 80px; }
+.mits-vstup-video__wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+.mits-vstup-video__wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+/* ── FAQ ── */
+.mits-vstup-faq { background: #000000; }
+.mits-vstup-faq__cta {
+  text-align: center;
+  margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .mits-vstup-levels__buttons { flex-direction: column; align-items: center; }
+  .mits-vstup-levels__buttons .mits-btn--level { width: 100%; max-width: 320px; text-align: center; }
+}
+
+/* ── ВАЖЛИВІ ПОРАДИ ── */
+.mits-tips {
+  background: #000;
+  padding: 80px 0 72px;
+  text-align: center;
+}
+.mits-tips__title {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0 0 56px;
+  line-height: 1.1;
+}
+.mits-tips__list {
+  list-style: none;
+  width: -webkit-fit-content;
+  width: fit-content;
+  margin: 0 auto 56px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mits-tips__item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.4;
+  text-align: left;
+}
+.mits-tips__check { flex-shrink: 0; }
+.mits-tips__cta { margin-top: 8px; }
+
+/* ── КРОКИ (після слайдера) ── */
+.mits-tech {
+  background: #000;
+  padding: 40px 0;
+}
+.mits-tech__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  gap: 32px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.mits-tech__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.mits-tech__img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.2s;
+}
+a.mits-tech__item:hover .mits-tech__img { opacity: 0.8; }
+@media (max-width: 480px) {
+  .mits-tech__img { width: 80px; height: 80px; }
+  .mits-tech__grid { gap: 24px 16px; }
+}
+
+/* ── ПРЕДМЕТИ ── */
+.mits-subjects {
+  background: #000;
+  padding: 64px 0;
+  text-align: center;
+}
+.mits-subjects__label {
+  color: #b0bec5;
+  font-size: 16px;
+  margin: 0 0 28px;
+  letter-spacing: .5px;
+}
+.mits-subjects__grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px 56px;
+  margin-bottom: 32px;
+}
+.mits-subjects__item {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+}
+.mits-subjects__note {
+  color: #b0bec5;
+  font-size: 15px;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── АЛГОРИТМ ВСТУПУ ── */
+.mits-algo {
+  background: #000;
+  padding: 80px 0 72px;
+  text-align: center;
+}
+.mits-algo__title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0 0 48px;
+  line-height: 1.1;
+  letter-spacing: 6px;
+}
+.mits-algo__card {
+  background: rgba(255,255,255,.07);
+  border-radius: 16px;
+  max-width: 720px;
+  margin: 0 auto 48px;
+  padding: 40px 48px;
+  text-align: left;
+}
+.mits-algo__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: algo;
+}
+.mits-algo__item {
+  counter-increment: algo;
+  display: flex;
+  gap: 10px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.mits-algo__item:last-child { margin-bottom: 0; }
+.mits-algo__item::before {
+  content: counter(algo) ".";
+  flex-shrink: 0;
+  font-weight: 700;
+  min-width: 28px;
+  color: #fff;
+}
+.mits-algo__item strong { font-weight: 700; }
+.mits-algo__item em { color: #9b8fe8; font-style: normal; }
+.mits-algo__item-body { flex: 1; min-width: 0; }
+.mits-algo__item-body ul { margin: 6px 0 0 0; padding-left: 18px; list-style: disc; }
+.mits-algo__item-body li { display: list-item; margin-bottom: 2px; }
+.mits-algo__cta { margin-bottom: 40px; }
+@media (max-width: 768px) {
+  .mits-tips__list { width: 100%; max-width: 100%; }
+  .mits-tips__title, .mits-algo__title { font-size: 28px; letter-spacing: 2px; }
+  .mits-algo__card { padding: 24px 20px; }
+}
+
+/* ============================================================
+   ОСВІТА PAGE TEMPLATE
+   ============================================================ */
+
+/* Reset inner-page constraints so hero slider spans full width */
+.page-template-template-mits-osvita #Content,
+.page-template-template-mits-osvita-sub #Content,
+.page-template-template-mits-nauka #Content {
+  display: block !important;
+  padding: 0 !important;
+}
+.page-template-template-mits-osvita .content_wrapper,
+.page-template-template-mits-osvita-sub .content_wrapper,
+.page-template-template-mits-nauka .content_wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* ── Intro content block ── */
+.mits-osvita-intro { background: #000; padding: 60px 0 48px; }
+.mits-osvita-intro__body {
+  max-width: 860px;
+  margin: 0 auto;
+  color: #d8d8d8;
+  font-size: 17px;
+  line-height: 1.8;
+}
+.mits-osvita-intro__body p { margin: 0 0 12px; }
+.mits-osvita-intro__body p:last-child { margin-bottom: 0; }
+
+/* ── Sections / sub-page buttons ── */
+.mits-osvita-sections { background: #000; padding: 60px 0; }
+.mits-osvita-sub-nav { background: #000; padding: 32px 0 0; }
+
+/* ── Sub-page content ── */
+.mits-osvita-sub-content { background: #000; padding: 60px 0 48px; }
+
+/* ── Technologies grid ── */
+.mits-osvita-tech { background: #000; padding: 60px 0; }
+.mits-osvita-tech__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.mits-osvita-tech__item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #2a2a2a;
+  border-radius: 20px;
+  padding: 32px 20px 24px;
+  text-align: center;
+  color: #d8d8d8;
+  transition: border-color 0.2s, background 0.2s;
+}
+.mits-osvita-tech__item:has(.mits-osvita-tech__link):hover {
+  border-color: #5a3fa8;
+  background: rgba(90,63,168,0.12);
+}
+.mits-osvita-tech__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+}
+.mits-osvita-tech__link:hover { color: inherit; }
+.mits-osvita-tech__img { display: flex; justify-content: center; }
+.mits-osvita-tech__img img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  border-radius: 18px;
+}
+.mits-osvita-tech__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+.mits-osvita-tech__desc {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 10px;
+  color: #9a9a9a;
+}
+.mits-osvita-tech__desc p { margin: 0 0 6px; }
+.mits-osvita-tech__desc p:last-child { margin-bottom: 0; }
+
+@media (max-width: 768px) {
+  .mits-osvita-tech__grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+}
+@media (max-width: 480px) {
+  .mits-osvita-tech__grid { grid-template-columns: 1fr; }
+}
+
+/* ── Osvita documents section ── */
+.mits-osvita-docs { background: #000; padding: 80px 0 60px; }
+.mits-osvita-docs__title {
+  text-align: center;
+  font-size: clamp(56px, 10vw, 120px);
+  font-weight: 800;
+  line-height: 1.0;
+  color: #fff;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin: 0 0 48px;
+}
+.mits-osvita-docs__card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 20px;
+  max-width: 820px;
+  margin: 0 auto 48px;
+  padding: 36px 44px;
+  color: #d8d8d8;
+  font-size: 17px;
+  line-height: 1.75;
+  text-align: left;
+}
+.mits-osvita-docs__card p { margin: 0 0 10px; }
+.mits-osvita-docs__card p:last-child { margin-bottom: 0; }
+.mits-osvita-docs__card a { color: #d8d8d8; text-decoration: underline; text-underline-offset: 3px; }
+.mits-osvita-docs__card a:hover { color: #fff; }
+.mits-osvita-docs__list {
+  display: block;
+  text-align: left;
+  max-width: 820px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 28px;
+  list-style: disc;
+  color: #e8e8e8 !important;
+  font-size: 18px !important;
+  line-height: 1.8;
+}
+.mits-osvita-docs__list-wrap {
+  width: 100%;
+}
+.mits-osvita-docs__item { margin-bottom: 6px; font-size: 18px !important; color: #e8e8e8 !important; }
+.mits-osvita-docs__item a { color: #e8e8e8 !important; text-decoration: underline; text-underline-offset: 3px; }
+.mits-osvita-docs__item a:hover { color: #fff !important; }
+@media (max-width: 768px) {
+  .mits-osvita-docs__card { padding: 24px 20px; }
+  .mits-osvita-docs__title { font-size: clamp(36px, 10vw, 64px); }
+}
+
+/* ── Рівні навчання ── */
+.mits-level-blocks { background: #0a0a0a; padding: 60px 0; }
+.mits-level-blocks__row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.mits-level-card {
+  background: #1e2235;
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mits-level-card__title {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+.mits-level-card__docs {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.mits-level-card__docs li { font-size: 15px; color: #5ec8e8; }
+.mits-level-card__docs a { color: #5ec8e8; text-decoration: underline; text-underline-offset: 3px; }
+.mits-level-card__docs a:hover { color: #90daf0 !important; text-decoration: underline; }
+.mits-level-card__vote-btn {
+  display: block;
+  align-self: center;
+  background: #111827;
+  border: 2px solid #3a4260;
+  border-radius: 50px;
+  padding: 11px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #e8eaf6 !important;
+  text-decoration: none !important;
+  transition: background .2s, border-color .2s;
+  text-align: center;
+  width: fit-content;
+}
+.mits-level-card__vote-btn:hover { background: #1e2a45; border-color: #5a6a9a; color: #fff !important; }
+.mits-level-card__schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  border-top: 1px solid #2a3050;
+  padding-top: 16px;
+}
+.mits-level-card__schedule a {
+  font-size: 15px;
+  color: #5ec8e8 !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.mits-level-card__schedule a:hover { color: #90daf0 !important; }
+@media (max-width: 900px) {
+  .mits-level-blocks__row { grid-template-columns: 1fr; }
+}
+
+/* ── Voting page ── */
+.mits-vote-page { background: #000; min-height: 60vh; display: flex; align-items: center; }
+.mits-vote-page__title { font-size: clamp(32px, 5vw, 56px); font-weight: 800; color: #fff; text-align: center; margin-bottom: 24px; }
+.mits-vote-page__msg { font-size: 20px; color: #aaa; text-align: center; }
+
+/* ── Osvita slogan ── */
+.mits-osvita-slogan { background: #000; padding: 56px 0; }
+.mits-osvita-lead__slogan {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: #a78bfa !important;
+  letter-spacing: -0.3px;
+}
+@media (max-width: 600px) {
+  .mits-osvita-lead__slogan { font-size: 24px; }
+}
+
+/* ── Osvita description card ── */
+.mits-osvita-desc-card {
+  background: rgba(255,255,255,0.07);
+  border-radius: 20px;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 52px;
+  text-align: center;
+}
+.mits-osvita-desc-card__body {
+  color: #d8d8d8;
+  font-size: 17px;
+  line-height: 1.8;
+}
+.mits-osvita-desc-card__body p { margin: 0 0 10px; }
+.mits-osvita-desc-card__body p:last-child { margin-bottom: 0; }
+.mits-osvita-desc-card__link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #4db8ff;
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.mits-osvita-desc-card__link:hover { color: #80cfff; }
+@media (max-width: 768px) {
+  .mits-osvita-desc-card { padding: 28px 24px; }
+}
+
+/* ============================================================
+   МІЖНАРОДНА ДІЯЛЬНІСТЬ
+   ============================================================ */
+
+/* ── About: photo + text ── */
+.mits-intl-about { background: #000; padding: 60px 0; }
+.mits-intl-about__inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  background: #1a1a24;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.mits-intl-about__inner--split .mits-intl-about__photo { flex: 0 0 380px; max-width: 380px; }
+.mits-intl-about__inner--split .mits-intl-about__text  { flex: 1; padding: 40px 44px; }
+.mits-intl-about__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 0;
+}
+.mits-intl-about__text { color: #d8d8d8; font-size: 17px; line-height: 1.8; }
+.mits-intl-about__text h2,
+.mits-intl-about__text h3 { color: #ffffff; margin-top: 0; }
+.mits-intl-about__text p  { margin: 0 0 14px; }
+.mits-intl-about__text p:last-child { margin-bottom: 0; }
+.mits-intl-about__text a  { color: #c084fc; text-decoration: underline; text-underline-offset: 3px; }
+.mits-intl-about__text a:hover { color: #e0b0ff; }
+.mits-intl-about__links {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+}
+.mits-intl-about__links li { margin: 0 0 6px; }
+.mits-intl-about__links a {
+  color: #c084fc;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.mits-intl-about__links a:hover { color: #e0b0ff; }
+
+/* ── Stats row ── */
+.mits-intl-stats { background: #000; padding: 60px 0; }
+.mits-intl-stats__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 80px;
+}
+.mits-intl-stats__divider {
+  width: 100%;
+  height: 2px;
+  background: #38bdf8;
+  margin: 50px 0;
+}
+.mits-intl-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+.mits-intl-stat__value {
+  font-size: 56px;
+  font-weight: 800;
+  color: #946ff6;
+  line-height: 1;
+}
+.mits-intl-stat__label {
+  font-size: 14px;
+  color: #569de6;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+/* ── Links section ── */
+.mits-intl-links { background: #000; }
+.mits-intl-links__list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.mits-intl-links__item { margin: 0; }
+.mits-intl-links__a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  background: #111827;
+  border: 1px solid #2a3050;
+  border-radius: 12px;
+  color: #5ec8e8;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .2s, background .2s;
+}
+.mits-intl-links__a:hover {
+  background: #182030;
+  border-color: #5ec8e8;
+  color: #90dcf0;
+}
+.mits-intl-links__icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  opacity: .7;
+}
+
+/* ── Documents section ── */
+.mits-intl-docs { background: #000; padding: 60px 0; }
+.mits-intl-docs__list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.mits-intl-docs__item { margin: 0; }
+.mits-intl-docs__a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #111827;
+  border: 1px solid #2a3050;
+  border-radius: 12px;
+  color: #d8d8d8;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color .2s, background .2s;
+}
+.mits-intl-docs__a:hover {
+  background: #182030;
+  border-color: #946ff6;
+  color: #ffffff;
+}
+.mits-intl-docs__icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  opacity: .75;
+}
+.mits-intl-docs__name { flex: 1; }
+.mits-intl-docs__dl {
+  font-size: 18px;
+  opacity: .5;
+  flex-shrink: 0;
+}
+.mits-intl-docs__a:hover .mits-intl-docs__dl { opacity: 1; color: #946ff6; }
+
+/* ── Courses section ── */
+.mits-intl-courses { background: #000; padding: 80px 0; }
+
+/* Intro block: photo + text */
+.mits-intl-courses__intro {
+  margin-bottom: 60px;
+}
+.mits-intl-courses__intro-photo {
+  width: 100%;
+}
+.mits-intl-courses__intro-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.mits-intl-courses__intro-text {
+  background: #1a1a24;
+  border-radius: 24px;
+  padding: 32px 48px;
+  color: #d8d8d8;
+  font-size: 17px;
+  line-height: 1.8;
+  text-align: center;
+  max-width: 620px;
+  margin: 24px auto 0;
+}
+.mits-intl-courses__intro-text p  { margin: 0 0 14px; }
+.mits-intl-courses__intro-text p:last-child { margin-bottom: 0; }
+.mits-intl-courses__intro-text a  { color: #c084fc; text-decoration: underline; text-underline-offset: 3px; }
+.mits-intl-courses__intro-text a:hover { color: #e0b0ff; }
+#mits-front .mits-intl-courses__slogan {
+  font-size: 36px;
+  font-weight: 700;
+  color: #946ff6;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.3;
+  max-width: 860px;
+  margin: 0 auto 56px;
+}
+.mits-intl-courses .mits-section__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: center;
+  color: #ffffff;
+  max-width: 680px;
+  margin: 0 auto 48px;
+  line-height: 1.5;
+}
+.mits-intl-courses .mits-advantages__accordion {
+  max-width: 860px;
+  counter-reset: course-num;
+}
+.mits-intl-courses .mits-adv-item__header > span:first-child::before {
+  counter-increment: course-num;
+  content: counter(course-num) ". ";
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .mits-intl-about__inner--split { flex-direction: column; }
+  .mits-intl-about__inner--split .mits-intl-about__photo { flex: none; max-width: 100%; }
+  .mits-intl-about__inner--split .mits-intl-about__text  { padding: 28px 28px 36px; }
+  .mits-intl-about__img { max-height: 320px; }
+  .mits-intl-stat__value { font-size: 40px; }
+  .mits-intl-stats__row  { gap: 28px 48px; }
+  .mits-intl-stats__divider { margin: 36px 0; }
+  .mits-intl-courses__intro-text   { padding: 24px 28px; }
+  .mits-intl-courses__slogan { font-size: 26px; }
+  .mits-intl-courses .mits-section__title { font-size: 18px; }
+}
+@media (max-width: 600px) {
+  .mits-intl-links__list { grid-template-columns: 1fr; }
+  .mits-intl-docs__list  { grid-template-columns: 1fr; }
+}

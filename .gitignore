@@ -1,0 +1,10 @@
+# secrets and local state
+wp-config.php
+.env
+*.sql
+*.sql.gz
+*.tar.gz
+/wordpress/
+/data/
+node_modules/
+.DS_Store

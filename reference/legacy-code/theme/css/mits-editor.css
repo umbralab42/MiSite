@@ -1,0 +1,50 @@
+/*
+ * MITS Editor Styles
+ * Loaded into TinyMCE (Classic Editor) and Gutenberg to match the front-end dark theme.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+/* ---- Base ---- */
+body,
+.editor-styles-wrapper {
+  background-color: #111111 !important;
+  color: #d8d8d8 !important;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 16px;
+  line-height: 1.7;
+  padding: 24px 32px !important;
+}
+
+/* ---- Headings ---- */
+h1, h2, h3, h4, h5, h6,
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+}
+
+/* ---- Links ---- */
+a { color: #569de6; text-decoration: none; }
+a:hover { color: #ffffff; }
+
+/* ---- Paragraphs / lists ---- */
+p { color: #d8d8d8; margin-bottom: 16px; }
+ul, ol { color: #d8d8d8; padding-left: 24px; }
+li { margin-bottom: 6px; }
+
+/* ---- BeBuilder section wrappers — ensure dark background propagates ---- */
+.section,
+.mcb-section,
+.section_wrapper,
+.column_attr { background-color: transparent !important; color: #d8d8d8 !important; }
+
+/* ---- Shortcode placeholder styling ---- */
+.mce-content-body [data-mce-selected] { outline: 2px dashed #569de6; }

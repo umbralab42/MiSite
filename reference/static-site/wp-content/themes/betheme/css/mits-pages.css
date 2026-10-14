@@ -1,0 +1,208 @@
+/* ============================================
+   MITS Standard Pages
+   Dark theme styles for WordPress pages
+   rendered via page.php / BeBuilder.
+   ============================================ */
+
+/* ---- Page body & wrappers ---- */
+.page #Wrapper,
+.page #Content {
+  background: #000;
+  color: #d8d8d8;
+}
+
+/* ---- Page content area ---- */
+.page .entry-content,
+.page .column_attr,
+.page .mcb-column-inner {
+  color: #d8d8d8;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+/* BeBuilder section/column resets */
+.page .section,
+.page .mcb-section {
+  background: transparent;
+}
+.page .section_wrapper {
+  max-width: 100%;
+}
+
+/* ---- Typography ---- */
+.page .entry-content h1,
+.page .entry-content h2,
+.page .entry-content h3,
+.page .entry-content h4,
+.page .entry-content h5,
+.page .entry-content h6,
+.page .column_attr h1,
+.page .column_attr h2,
+.page .column_attr h3,
+.page .column_attr h4,
+.page .column_attr h5,
+.page .column_attr h6 {
+  color: #ffffff;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+.page .entry-content h1 { font-size: 40px; line-height: 1.2; margin-bottom: 24px; }
+.page .entry-content h2 { font-size: 30px; line-height: 1.25; margin-bottom: 20px; }
+.page .entry-content h3 { font-size: 22px; line-height: 1.3;  margin-bottom: 16px; }
+.page .entry-content h4 { font-size: 18px; margin-bottom: 14px; }
+
+.page .entry-content p,
+.page .column_attr p {
+  margin-bottom: 16px;
+  color: #d8d8d8;
+}
+
+/* ---- Lists ---- */
+.page .entry-content ul,
+.page .entry-content ol,
+.page .column_attr ul,
+.page .column_attr ol {
+  padding-left: 24px;
+  margin-bottom: 20px;
+  color: #d8d8d8;
+}
+.page .entry-content ul li,
+.page .entry-content ol li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* ---- Links ---- */
+.page .entry-content a,
+.page .column_attr a {
+  color: #569de6;
+  text-decoration: none;
+}
+.page .entry-content a:hover,
+.page .column_attr a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* ---- Images ---- */
+.page .entry-content img,
+.page .column_attr img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ---- Blockquote ---- */
+.page .entry-content blockquote {
+  border-left: 3px solid #569de6;
+  margin: 24px 0;
+  padding: 16px 24px;
+  background: rgba(86, 157, 230, 0.06);
+  border-radius: 0 8px 8px 0;
+  color: #b0bec5;
+  font-style: italic;
+}
+
+/* ---- Tables ---- */
+.page .entry-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+.page .entry-content th,
+.page .entry-content td {
+  padding: 12px 16px;
+  border: 1px solid #2a2a2a;
+  color: #d8d8d8;
+  text-align: left;
+}
+.page .entry-content th {
+  background: #1c1c1c;
+  color: #ffffff;
+  font-weight: 600;
+}
+.page .entry-content tr:nth-child(even) td {
+  background: rgba(255,255,255,0.03);
+}
+
+/* ---- Horizontal rule ---- */
+.page .entry-content hr {
+  border: none;
+  border-top: 1px solid #2a2a2a;
+  margin: 40px 0;
+}
+
+/* ---- Code ---- */
+.page .entry-content code {
+  background: #1c1c1c;
+  color: #e662a1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.page .entry-content pre {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 20px 24px;
+  overflow-x: auto;
+  margin-bottom: 24px;
+}
+.page .entry-content pre code {
+  background: none;
+  color: #d8d8d8;
+  padding: 0;
+}
+
+/* ---- Page section divider ---- */
+.mits-page-divider {
+  border: none;
+  border-top: 1px solid #2a2a2a;
+  margin: 48px 0;
+}
+
+/* ---- MITS page template title ---- */
+.mits-page__title {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  font-size: 48px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 64px 0 48px;
+}
+
+/* ---- Contacts page overrides ---- */
+.mits-page .mits-contacts {
+  padding: 0;
+}
+.mits-page .mits-contacts__item {
+  font-size: 18px;
+  gap: 18px;
+  align-items: center;
+}
+.mits-page .mits-contacts__icon {
+  flex-shrink: 0;
+  line-height: 1;
+}
+.mits-page .mits-contacts__icon svg {
+  display: block;
+  width: 42px;
+  height: 42px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .page .entry-content h1 { font-size: 28px; }
+  .page .entry-content h2 { font-size: 22px; }
+  .page .entry-content h3 { font-size: 18px; }
+  .page .entry-content { font-size: 15px; }
+  .mits-page__title { font-size: 32px; letter-spacing: 2px; margin: 40px 0 32px; }
+}
